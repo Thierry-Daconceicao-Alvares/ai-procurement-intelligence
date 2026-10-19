@@ -16,8 +16,12 @@ SQL_DIR = Path(__file__).parent / "sql"
 
 
 def connect(settings: Settings, read_only: bool = False) -> duckdb.DuckDBPyConnection:
+    """The warehouse file. DuckDB's memory is capped (spilling to disk beyond),
+    so that the Python models of the build have room next to it."""
     settings.warehouse_path.parent.mkdir(parents=True, exist_ok=True)
-    return duckdb.connect(str(settings.warehouse_path), read_only=read_only)
+    con = duckdb.connect(str(settings.warehouse_path), read_only=read_only)
+    con.execute(f"SET memory_limit = '{settings.duckdb_memory_limit}'")
+    return con
 
 
 def render(sql: str, settings: Settings) -> str:

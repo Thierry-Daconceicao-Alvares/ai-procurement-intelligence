@@ -63,31 +63,41 @@ WHERE amount_change_status = 'increased'
 
 UNION ALL BY NAME
 
--- 2. Amounts far from what comparable contracts cost (model residual).
+-- 2. Implausible amounts (excluded from totals), and amounts far from what
+-- comparable contracts cost (model residual of at least 3.5 robust standard
+-- deviations).
 SELECT
-    CASE WHEN amount_status = 'implausible' THEN 'implausible_amount'
+    CASE WHEN f.amount_status = 'implausible' THEN 'implausible_amount'
         ELSE 'atypical_amount' END AS alert_type,
-    CASE WHEN amount_status = 'implausible' THEN 'high' ELSE 'medium' END AS severity,
-    uid,
-    buyer_siret,
-    lead_holder_key AS holder_key,
-    cpv_division,
-    notification_date AS reference_date,
-    abs(reported_amount - expected_amount) AS amount_at_stake,
+    CASE WHEN f.amount_status = 'implausible' THEN 'high' ELSE 'medium' END AS severity,
+    f.uid,
+    f.buyer_siret,
+    f.lead_holder_key AS holder_key,
+    f.cpv_division,
+    f.notification_date AS reference_date,
+    abs(f.reported_amount - f.expected_amount) AS amount_at_stake,
     to_json({
-        'reported_amount': reported_amount,
-        'expected_amount': round(expected_amount),
-        'ratio_to_expected': round(reported_amount / expected_amount, 3),
-        'robust_z': amount_z_model,
-        'excluded_from_totals': amount_status = 'implausible',
-        'contract_type': contract_type,
-        'is_framework': is_framework,
-        'procedure_type': procedure_type,
-        'notification_date': notification_date
+        'reported_amount': f.reported_amount,
+        'expected_amount': round(f.expected_amount),
+        'ratio_to_expected': f.reported_amount / f.expected_amount,
+        'robust_z': f.amount_z_model,
+        'amount_issue': f.amount_issue,
+        'excluded_from_totals': f.amount_status = 'implausible',
+        'same_amount_contracts':
+            CASE WHEN f.amount_issue = 'default_ceiling' THEN s.same_amount_contracts END,
+        'same_amount_divisions':
+            CASE WHEN f.amount_issue = 'default_ceiling' THEN s.same_amount_divisions END,
+        'buyer_p90_amount':
+            CASE WHEN f.amount_issue = 'default_ceiling' THEN round(s.buyer_p90_amount) END,
+        'contract_type': f.contract_type,
+        'is_framework': f.is_framework,
+        'procedure_type': f.procedure_type,
+        'notification_date': f.notification_date
     }) AS evidence
-FROM fct_contracts
-WHERE amount_status = 'implausible'
-    OR (amount_status = 'valid' AND abs(amount_z_model) >= 3.5)
+FROM fct_contracts AS f
+JOIN int_amount_status AS s USING (uid)
+WHERE f.amount_status = 'implausible'
+    OR (f.amount_status = 'valid' AND abs(f.amount_z_model) >= 3.5)
 
 UNION ALL BY NAME
 
@@ -419,13 +429,19 @@ WHERE total >= 1e6 AND contracts >= 3 AND top_share >= 0.6
 UNION ALL BY NAME
 
 -- 11. Several records for one award: the same contract published several
--- times (duplicate), or one framework agreement published once per supplier.
--- The extra records are excluded from totals; the alert shows what was removed.
+-- times (duplicate), one framework agreement published once per supplier, or
+-- one joint purchase published by each member of the purchasing group. The
+-- extra records are excluded from totals; the alert shows what was removed.
+-- These are findings on the published data, not risks: their severity is at
+-- most medium.
 SELECT
-    CASE WHEN d.group_kind = 'duplicate' THEN 'duplicate_declarations'
-        ELSE 'framework_split_records' END AS alert_type,
+    CASE d.group_kind
+        WHEN 'duplicate' THEN 'duplicate_declarations'
+        WHEN 'joint_purchase' THEN 'joint_purchase_records'
+        ELSE 'framework_split_records'
+    END AS alert_type,
     CASE WHEN d.group_size >= 5 OR (d.group_size - 1) * coalesce(f.awarded_amount, 0) >= 1e7
-        THEN 'high' ELSE 'medium' END AS severity,
+        THEN 'medium' ELSE 'low' END AS severity,
     f.uid,
     f.buyer_siret,
     f.lead_holder_key AS holder_key,
@@ -434,6 +450,7 @@ SELECT
     (d.group_size - 1) * coalesce(f.awarded_amount, 0) AS amount_at_stake,
     to_json({
         'records': d.group_size,
+        'buyers': d.group_buyers,
         'amount': f.reported_amount,
         'notification_date': f.notification_date,
         'kept_record': f.uid,
@@ -445,8 +462,10 @@ JOIN fct_contracts AS f ON f.uid = d.uid
 JOIN (
     SELECT
         o.duplicate_group,
-        list({'uid': c.uid, 'reference': c.contract_ref, 'source': c.source_dataset} ORDER BY c.uid)
-            AS removed
+        list({
+            'uid': c.uid, 'buyer': c.buyer_name, 'reference': c.contract_ref,
+            'source': c.source_dataset
+        } ORDER BY c.uid) AS removed
     FROM int_duplicates AS o
     JOIN int_contracts AS c USING (uid)
     WHERE NOT o.is_canonical

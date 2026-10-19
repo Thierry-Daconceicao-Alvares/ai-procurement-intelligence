@@ -23,9 +23,11 @@ LEFT JOIN cpv AS d ON d.code = c.division || '000000'
 LEFT JOIN cpv AS g ON g.code = left(c.code, 3) || '00000'
 LEFT JOIN cpv AS k ON k.code = left(c.code, 4) || '0000';
 
--- Amount status: missing, implausible (outside hard bounds, or at least 5
--- robust standard deviations from the amount the model expects for
--- comparable contracts) or valid. Only valid amounts enter totals.
+-- Amount status: missing, implausible or valid. Only valid amounts enter
+-- totals. An amount is implausible when it failed a rule-based check of
+-- 04_amount_quality.sql (placeholder, out_of_bounds, default_ceiling), or when
+-- it is at least 5 robust standard deviations from the amount the model
+-- expects for comparable contracts (far_from_expected).
 CREATE OR REPLACE TABLE int_amount_status AS
 SELECT
     q.uid,
@@ -38,15 +40,22 @@ SELECT
     coalesce(m.expected_amount, q.segment_median_amount) AS expected_amount,
     CASE
         WHEN q.initial_amount IS NULL THEN 'missing'
-        WHEN q.initial_amount < 100 OR q.initial_amount >= 1e10 THEN 'implausible'
-        WHEN abs(m.amount_z_model) >= 5 THEN 'implausible'
+        WHEN q.amount_issue IS NOT NULL OR abs(m.amount_z_model) >= 5 THEN 'implausible'
         ELSE 'valid'
-    END AS amount_status
+    END AS amount_status,
+    CASE
+        WHEN q.amount_issue IS NOT NULL THEN q.amount_issue
+        WHEN abs(m.amount_z_model) >= 5 THEN 'far_from_expected'
+    END AS amount_issue,
+    q.same_amount_contracts,
+    q.same_amount_divisions,
+    q.buyer_p90_amount
 FROM int_amount_quality AS q
 LEFT JOIN int_amount_model AS m USING (uid);
 
 -- Holders of each kept record: its own holders, plus those of the records it
--- replaces when one framework agreement was published once per supplier.
+-- replaces (one framework agreement published once per supplier, or one joint
+-- purchase published by each member).
 CREATE OR REPLACE TABLE int_kept_holders AS
 SELECT DISTINCT ON (uid, holder_key)
     coalesce(d.canonical_uid, h.uid) AS uid,
@@ -83,6 +92,7 @@ SELECT
     p.cpv_group,
     c.initial_amount AS reported_amount,
     q.amount_status,
+    q.amount_issue,
     q.amount_z_model,
     q.expected_amount,
     q.amount_z_segment,
@@ -122,7 +132,9 @@ SELECT
     c.producer_amount_flag,
     c.source_dataset,
     coalesce(d.group_size, 1) AS records,
-    coalesce(d.group_kind, 'single record') AS record_group_kind
+    coalesce(d.group_kind, 'single record') AS record_group_kind,
+    -- More than one for a joint purchase published by each member.
+    coalesce(d.group_buyers, 1) AS record_buyers
 FROM int_contracts AS c
 JOIN int_amount_status AS q USING (uid)
 LEFT JOIN int_duplicates AS d USING (uid)
@@ -156,7 +168,7 @@ SELECT
     arg_max(buyer_region_code, notification_date) AS buyer_region_code,
     arg_max(buyer_region, notification_date) AS buyer_region
 FROM int_contracts
-WHERE uid IN (SELECT uid FROM fct_contracts)
+WHERE uid IN (SELECT uid FROM fct_contracts) AND buyer_siret IS NOT NULL
 GROUP BY buyer_siret;
 
 -- Suppliers (one row per company). The name of an individual entrepreneur is

@@ -36,6 +36,8 @@ class Settings:
     gemini_api_key: str = ""
     generation_model: str = "gemini-3.5-flash-lite"
     public_demo: bool = False
+    # Memory DuckDB may use while building the warehouse.
+    duckdb_memory_limit: str = "4GB"
 
     @property
     def snapshot_dir(self) -> Path:
@@ -55,6 +57,14 @@ class Settings:
         return self.data_dir / "marts"
 
     @property
+    def model_dir(self) -> Path:
+        return PROJECT_ROOT / "models"
+
+    @property
+    def metrics_dir(self) -> Path:
+        return PROJECT_ROOT / "reports" / "metrics"
+
+    @property
     def warehouse_path(self) -> Path:
         return self.data_dir / "cache" / "warehouse.duckdb"
 
@@ -69,4 +79,5 @@ class Settings:
             gemini_api_key=_read("GEMINI_API_KEY", ""),
             generation_model=_read("GENERATION_MODEL", "gemini-3.5-flash-lite"),
             public_demo=_read("PUBLIC_DEMO", "false").lower() in {"1", "true", "yes"},
+            duckdb_memory_limit=_read("DUCKDB_MEMORY_LIMIT", "4GB"),
         )
