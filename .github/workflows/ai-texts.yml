@@ -1,0 +1,79 @@
+# Generates the AI explanations shown in the public demo: the alerts with the
+# highest priority of each category and the briefing of the national view,
+# written by Gemini from the evidence of each alert, then checked figure by
+# figure. Visitors of the demo read these texts without spending API quota.
+# Needs the repository secret GEMINI_API_KEY. Started manually; the texts and
+# their metrics are committed to main.
+name: Generate AI texts
+
+on:
+  workflow_dispatch:
+    inputs:
+      per_category:
+        description: Alerts explained per category
+        default: "40"
+      delay:
+        description: Seconds between two calls (free tier rate limit)
+        default: "4"
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          sparse-checkout: |
+            /*
+            !/data/snapshot/
+          sparse-checkout-cone-mode: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+          cache: pip
+      - name: Install
+        run: pip install -e .
+      - name: Generate
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          PER_CATEGORY: ${{ inputs.per_category }}
+          DELAY: ${{ inputs.delay }}
+        run: |
+          if [ -z "$GEMINI_API_KEY" ]; then
+            echo "::error::Add the repository secret GEMINI_API_KEY first."
+            exit 1
+          fi
+          bash scripts/annotate_failure.sh "Generation failed" \
+            python scripts/generate_ai_texts.py --per-category "$PER_CATEGORY" --delay "$DELAY"
+      - name: Summary
+        if: always()
+        run: |
+          if [ -f reports/metrics/ai_texts.json ]; then
+            python - <<'PY'
+          import json
+          m = json.load(open("reports/metrics/ai_texts.json"))
+          keys = ["alerts_requested", "alerts_explained", "texts", "texts_with_all_figures_verified",
+                  "latency_median_s", "estimated_cost_usd_paid_tier", "stopped"]
+          print("::notice title=AI texts::" + ", ".join(f"{k}={m.get(k)}" for k in keys))
+          PY
+          fi
+      # Committed even when the daily quota stopped the run: the texts written
+      # so far are verified, and the metrics record where the run stopped.
+      - name: Commit the texts
+        if: ${{ always() && hashFiles('data/marts/ai_texts.json') != '' }}
+        env:
+          AUTHOR_NAME: Thierry Daconceição Alvares
+          AUTHOR_EMAIL: 91541305+Thierry-Daconceicao-Alvares@users.noreply.github.com
+        run: |
+          git config user.name "$AUTHOR_NAME"
+          git config user.email "$AUTHOR_EMAIL"
+          git add data/marts/ai_texts.json reports/metrics/ai_texts.json
+          if git diff --cached --quiet; then
+            echo "Nothing to commit."
+          else
+            git commit -m "Generate the AI texts of the public demo"
+            git push
+          fi
