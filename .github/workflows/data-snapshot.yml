@@ -1,0 +1,44 @@
+# Downloads the open data used by the project and freezes it in data/snapshot/,
+# so that every result can be reproduced from the same data:
+# - Données essentielles de la commande publique consolidées (data.gouv.fr,
+#   Licence Ouverte 2.0);
+# - Base Sirene, stock of legal units (INSEE via data.gouv.fr, Licence Ouverte
+#   2.0), reduced to the contract holders and without any name.
+# Started manually; the snapshot is committed to main.
+name: Build the data snapshot
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Install
+        run: pip install duckdb==1.5.6
+      - name: Download the sources
+        run: bash scripts/annotate_failure.sh "Download failed" python scripts/snapshot/download.py --out raw
+      - name: Build the snapshot
+        run: |
+          bash scripts/annotate_failure.sh "Snapshot failed" \
+            python scripts/snapshot/build_snapshot.py --raw raw --out data/snapshot
+      - name: Commit the snapshot
+        env:
+          AUTHOR_NAME: Thierry Daconceição Alvares
+          AUTHOR_EMAIL: 91541305+Thierry-Daconceicao-Alvares@users.noreply.github.com
+        run: |
+          git config user.name "$AUTHOR_NAME"
+          git config user.email "$AUTHOR_EMAIL"
+          git add data/snapshot
+          git commit -m "Add the data snapshot of $(date -u +%F)"
+          git pull --rebase origin main
+          git push origin HEAD:main
+          echo "::notice title=Data snapshot::$(cat data/snapshot/SUMMARY.txt)"

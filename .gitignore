@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+build/
+dist/
+
+# Secrets: never commit them
+.env
+.streamlit/secrets.toml
+
+# Downloads of the snapshot workflow (the frozen snapshot is in data/snapshot/)
+raw/
+
+# Local caches and decision logs
+data/cache/
+data/decisions/
+
+# Editors and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
