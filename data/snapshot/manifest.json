@@ -1,0 +1,410 @@
+{
+  "created_at": "2026-10-19T13:01:29Z",
+  "sources": {
+    "decp": {
+      "name": "Données essentielles de la commande publique consolidées (format tabulaire)",
+      "producer": "Colin Maudry (decp.info), from the data published by French public buyers",
+      "license": "Licence Ouverte / Open Licence 2.0",
+      "dataset_page": "https://www.data.gouv.fr/datasets/608c055b35eb4e6ee20eb325",
+      "resource_id": null,
+      "resource_title": null,
+      "resource_last_modified": null,
+      "url": "https://www.data.gouv.fr/api/1/datasets/r/11cea8e8-df3e-4ed1-932b-781e2635e432",
+      "downloaded_at": "2026-10-19T13:00:39Z",
+      "bytes": 248926042,
+      "sha256": "97fbe109dc39993edcc949b9c641306761549bc429c0af7040c26245092b8e85",
+      "file": "decp.parquet"
+    },
+    "sirene": {
+      "name": "Base Sirene des entreprises et de leurs établissements, stock des unités légales",
+      "producer": "INSEE",
+      "license": "Licence Ouverte / Open Licence 2.0",
+      "dataset_page": "https://www.data.gouv.fr/datasets/5b7ffc618b4c4169d30727e0",
+      "resource_id": "350182c9-148a-46e0-8389-76c2ec1374a3",
+      "resource_title": "Sirene : Fichier StockUniteLegale - 01 octobre 2026 (format parquet)",
+      "resource_last_modified": "2026-10-01T07:33:54.372000+00:00",
+      "url": "https://static.data.gouv.fr/resources/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret/20261001-073325/stock-stockunitelegale-parquet.parquet",
+      "downloaded_at": "2026-10-19T13:00:47Z",
+      "bytes": 713585991,
+      "sha256": "ca39d8b9813442f7169970a9e1b9dcc755c7ed30301e39f658cebef2882037a5",
+      "file": "sirene_unites_legales.parquet"
+    }
+  },
+  "decp": {
+    "rows": 3306573,
+    "contracts": 1841547,
+    "notification_dates": {
+      "min": "0001-01-01",
+      "max": "2026-10-19"
+    },
+    "columns": [
+      "uid",
+      "id",
+      "nature",
+      "acheteur_id",
+      "acheteur_nom",
+      "titulaire_id",
+      "titulaire_typeIdentifiant",
+      "titulaire_nom",
+      "objet",
+      "montant",
+      "type",
+      "codeCPV",
+      "procedure",
+      "techniques",
+      "dureeMois",
+      "dureeRestanteMois",
+      "offresRecues",
+      "dateNotification",
+      "datePublicationDonnees",
+      "formePrix",
+      "typesPrix",
+      "attributionAvance",
+      "tauxAvance",
+      "marcheInnovant",
+      "modalitesExecution",
+      "considerationsSociales",
+      "considerationsEnvironnementales",
+      "ccag",
+      "sousTraitanceDeclaree",
+      "typeGroupementOperateurs",
+      "origineUE",
+      "origineFrance",
+      "lieuExecution_code",
+      "lieuExecution_typeCode",
+      "idAccordCadre",
+      "titulaire_distance",
+      "acheteur_categorie",
+      "acheteur_labels",
+      "acheteur_commune_code",
+      "acheteur_commune_nom",
+      "acheteur_departement_code",
+      "acheteur_departement_nom",
+      "acheteur_region_code",
+      "acheteur_region_nom",
+      "acheteur_population",
+      "titulaire_categorie",
+      "titulaire_labels",
+      "titulaire_activite_code",
+      "titulaire_activite_libelle",
+      "titulaire_commune_code",
+      "titulaire_commune_nom",
+      "titulaire_departement_code",
+      "titulaire_departement_nom",
+      "titulaire_region_code",
+      "titulaire_region_nom",
+      "modification_id",
+      "donneesActuelles",
+      "montant_rationalise",
+      "montant_anomalie",
+      "montant_anomalie_raisons",
+      "sourceDataset"
+    ],
+    "dropped_columns": [
+      "acheteur_latitude",
+      "acheteur_longitude",
+      "sourceFile",
+      "titulaire_latitude",
+      "titulaire_longitude"
+    ],
+    "files": [
+      "decp/part-0.parquet",
+      "decp/part-1.parquet",
+      "decp/part-2.parquet",
+      "decp/part-3.parquet",
+      "decp/part-4.parquet",
+      "decp/part-5.parquet",
+      "decp/part-6.parquet",
+      "decp/part-7.parquet",
+      "decp/part-8.parquet",
+      "decp/part-9.parquet",
+      "decp/part-10.parquet",
+      "decp/part-11.parquet",
+      "decp/part-12.parquet",
+      "decp/part-13.parquet",
+      "decp/part-14.parquet",
+      "decp/part-15.parquet",
+      "decp/part-16.parquet",
+      "decp/part-17.parquet",
+      "decp/part-18.parquet",
+      "decp/part-19.parquet",
+      "decp/part-20.parquet",
+      "decp/part-21.parquet",
+      "decp/part-22.parquet",
+      "decp/part-23.parquet",
+      "decp/part-24.parquet",
+      "decp/part-25.parquet",
+      "decp/part-26.parquet",
+      "decp/part-27.parquet",
+      "decp/part-28.parquet",
+      "decp/part-29.parquet",
+      "decp/part-30.parquet",
+      "decp/part-31.parquet",
+      "decp/part-32.parquet",
+      "decp/part-33.parquet",
+      "decp/part-34.parquet",
+      "decp/part-35.parquet",
+      "decp/part-36.parquet",
+      "decp/part-37.parquet"
+    ]
+  },
+  "sirene": {
+    "sirens_requested": 157689,
+    "rows": 155896,
+    "columns": [
+      "siren",
+      "statutDiffusionUniteLegale",
+      "unitePurgeeUniteLegale",
+      "dateCreationUniteLegale",
+      "trancheEffectifsUniteLegale",
+      "anneeEffectifsUniteLegale",
+      "dateDernierTraitementUniteLegale",
+      "categorieEntreprise",
+      "anneeCategorieEntreprise",
+      "dateDebut",
+      "etatAdministratifUniteLegale",
+      "categorieJuridiqueUniteLegale",
+      "activitePrincipaleUniteLegale",
+      "nomenclatureActivitePrincipaleUniteLegale",
+      "economieSocialeSolidaireUniteLegale",
+      "societeMissionUniteLegale",
+      "caractereEmployeurUniteLegale"
+    ]
+  },
+  "files": [
+    {
+      "path": "decp/part-0.parquet",
+      "rows": 153600,
+      "bytes": 11277667,
+      "sha256": "ac8f01413215878f4c2014e6f693a901e07c63e29867842d780d872be9fb5fa2"
+    },
+    {
+      "path": "decp/part-1.parquet",
+      "rows": 153600,
+      "bytes": 11014720,
+      "sha256": "e98e58420a69ec9e3aefd1246f9a292c1646bec2b400c91fae6c8b5e4df9b746"
+    },
+    {
+      "path": "decp/part-10.parquet",
+      "rows": 153600,
+      "bytes": 10683700,
+      "sha256": "3292c661b5e93784c410debba541222d594a464288c2c385955c56b00d63e501"
+    },
+    {
+      "path": "decp/part-11.parquet",
+      "rows": 153600,
+      "bytes": 11116926,
+      "sha256": "5dc81593c856529030563aa59a5316e4da5f789f1ceef2285e9b6ac61d09952f"
+    },
+    {
+      "path": "decp/part-12.parquet",
+      "rows": 153600,
+      "bytes": 11748664,
+      "sha256": "914e0c2b12ed0dad74ab96bfad638e5179caf3da2cf8daacbbaaf841084297d6"
+    },
+    {
+      "path": "decp/part-13.parquet",
+      "rows": 51200,
+      "bytes": 4096480,
+      "sha256": "dd1a6967da6274382283f370213a10a5bcb86b3bf74b9c6233062367f20b6d6d"
+    },
+    {
+      "path": "decp/part-14.parquet",
+      "rows": 51200,
+      "bytes": 4081076,
+      "sha256": "62764750f6a1c0b614695bb2e306aae6a5ae23f857f6ca47d225c921e8e0c6cb"
+    },
+    {
+      "path": "decp/part-15.parquet",
+      "rows": 51200,
+      "bytes": 4156525,
+      "sha256": "d96256001d61b932c8678bd6e3641983163d7885cc5e011292596716cc1f54aa"
+    },
+    {
+      "path": "decp/part-16.parquet",
+      "rows": 51200,
+      "bytes": 4112496,
+      "sha256": "73f7505da79701255a81214d1c5af7ebb39ea1f732620aa26b93fe2dccdc90ae"
+    },
+    {
+      "path": "decp/part-17.parquet",
+      "rows": 51200,
+      "bytes": 4132444,
+      "sha256": "02b1622e94cc10eda29fcdc0bc1c774b10bd100af0576841e2f472b8c5b3b067"
+    },
+    {
+      "path": "decp/part-18.parquet",
+      "rows": 51200,
+      "bytes": 4098948,
+      "sha256": "c45b79bf3035e325328f7aca70c8993d4f3a335c49c07eb80451aba69ed5bca1"
+    },
+    {
+      "path": "decp/part-19.parquet",
+      "rows": 51200,
+      "bytes": 4142445,
+      "sha256": "11a883e0863a50ebb26db414aac23d432f9ce9a9cff0812b748c1cd9ec2d40b8"
+    },
+    {
+      "path": "decp/part-2.parquet",
+      "rows": 153600,
+      "bytes": 9886542,
+      "sha256": "a3a24a24c565f1a6b61a62e09779e29091e9d945928417b873e5c7db2a93747c"
+    },
+    {
+      "path": "decp/part-20.parquet",
+      "rows": 51200,
+      "bytes": 4071552,
+      "sha256": "a0b4055df13a8544032ed5a630c6db28c148abddc64a2edb868d463d40741b28"
+    },
+    {
+      "path": "decp/part-21.parquet",
+      "rows": 51200,
+      "bytes": 4163685,
+      "sha256": "508a86e406ba988cac352d951ee152ba1a4464aa5ee74606a350dde310fbe4f1"
+    },
+    {
+      "path": "decp/part-22.parquet",
+      "rows": 51200,
+      "bytes": 4163487,
+      "sha256": "a3a44f17e01824a90fc8a43b82b96d0fc000fe3476e2126dd6abd374678d0394"
+    },
+    {
+      "path": "decp/part-23.parquet",
+      "rows": 51200,
+      "bytes": 4107194,
+      "sha256": "d6c347069bceb4baf495ced08a1d4da2a1b584934e1ac6cb32e0b77895885522"
+    },
+    {
+      "path": "decp/part-24.parquet",
+      "rows": 51200,
+      "bytes": 4160021,
+      "sha256": "5f22b4a0f4594391ccfe652a5c1ae4579b12f627f2a2b72db68ce383f0bc272e"
+    },
+    {
+      "path": "decp/part-25.parquet",
+      "rows": 51200,
+      "bytes": 4093603,
+      "sha256": "bff6ea1a8baf60779b963a3cac56f13fe3120de66a522238de811aedb3e8f340"
+    },
+    {
+      "path": "decp/part-26.parquet",
+      "rows": 51200,
+      "bytes": 4169285,
+      "sha256": "89ee184381dfc2978678f07faa7c8727dd839e698dbee9458307e62d3e107279"
+    },
+    {
+      "path": "decp/part-27.parquet",
+      "rows": 51200,
+      "bytes": 4160970,
+      "sha256": "130a5d0b014771b5b466498bb097aa219b465bd90182886bea0c75fd1e9778e6"
+    },
+    {
+      "path": "decp/part-28.parquet",
+      "rows": 51200,
+      "bytes": 4141269,
+      "sha256": "0618b5473e0261dc10926bc9b3ffdf19f45ce42ea61218123f3b78d34bad76c9"
+    },
+    {
+      "path": "decp/part-29.parquet",
+      "rows": 51200,
+      "bytes": 4106668,
+      "sha256": "45c2115b83a889fbeb1f79eaed1e0f25f18e140c02a94fb3b21f3af9b9dfa80f"
+    },
+    {
+      "path": "decp/part-3.parquet",
+      "rows": 153600,
+      "bytes": 9838297,
+      "sha256": "1b1be8f4eb01b39cc519e433bb178ed3488b555f388ffd0d7ef10100aa5c0260"
+    },
+    {
+      "path": "decp/part-30.parquet",
+      "rows": 51200,
+      "bytes": 4083390,
+      "sha256": "ecf8aed2b3e61c64539e777b626e5c32d7634cc2cc71c1d4e7af4770e7ea37e6"
+    },
+    {
+      "path": "decp/part-31.parquet",
+      "rows": 51200,
+      "bytes": 4106668,
+      "sha256": "cf4d3b6fa2d53140ecdef0cec13de62f97b4d353830bbc0e311e7d5c4e4b6731"
+    },
+    {
+      "path": "decp/part-32.parquet",
+      "rows": 51200,
+      "bytes": 4047154,
+      "sha256": "4953d55a723948312f7b576f61cd5123fe956a21a63844d015afc631a1838469"
+    },
+    {
+      "path": "decp/part-33.parquet",
+      "rows": 51200,
+      "bytes": 4100818,
+      "sha256": "6a4abd748b1ebee2ed50e898b5c5c39c586cc86de5e622d518cf3cc7adf6f6b0"
+    },
+    {
+      "path": "decp/part-34.parquet",
+      "rows": 51200,
+      "bytes": 4068924,
+      "sha256": "1d773c3b20a3cc33eb3e163747da070b5aabefd6cdfffce063ca98881e67c9b0"
+    },
+    {
+      "path": "decp/part-35.parquet",
+      "rows": 51200,
+      "bytes": 4113129,
+      "sha256": "f679f0549f8c43576d4518a99b7111e1b3fa775481c3e89e5def9b6976955cea"
+    },
+    {
+      "path": "decp/part-36.parquet",
+      "rows": 51200,
+      "bytes": 4147221,
+      "sha256": "0ddd5560f5f4ac2b7cca6dda4645efa16a883a4623b689480302b11e33d0a3dc"
+    },
+    {
+      "path": "decp/part-37.parquet",
+      "rows": 80973,
+      "bytes": 6097453,
+      "sha256": "fd7cd7c1b28bae40490064e5986511c3a797db2e8519782d621e9d6d896a9ada"
+    },
+    {
+      "path": "decp/part-4.parquet",
+      "rows": 153600,
+      "bytes": 9957271,
+      "sha256": "0905d4291e14cabb4d4d237da3db809dd98320a2ea7a14fc393e7aafae29f4d8"
+    },
+    {
+      "path": "decp/part-5.parquet",
+      "rows": 153600,
+      "bytes": 9703372,
+      "sha256": "bf7a3889b55134bcb161f574169a2fc840547b8ebffef3b0195b19e60274ff78"
+    },
+    {
+      "path": "decp/part-6.parquet",
+      "rows": 153600,
+      "bytes": 9886635,
+      "sha256": "9b2d5bcae8d2b2fa62f56695fe76c8c148581eac3147f7cfb1ae9038e8590d32"
+    },
+    {
+      "path": "decp/part-7.parquet",
+      "rows": 153600,
+      "bytes": 10053557,
+      "sha256": "cd8f1f9f548fa6767c5ccf85be5f656a360684ed9d67a02eac7fba09642cf088"
+    },
+    {
+      "path": "decp/part-8.parquet",
+      "rows": 153600,
+      "bytes": 9962319,
+      "sha256": "20809a0fd7ad18a91ac9ee1c0d486599e7aefb728f885ed747ca7150645d6679"
+    },
+    {
+      "path": "decp/part-9.parquet",
+      "rows": 153600,
+      "bytes": 10588006,
+      "sha256": "1c2390abbe8343e16a08eb07a403ca59487aa774b18eba286af9041101cd8bb9"
+    },
+    {
+      "path": "sirene_titulaires.parquet",
+      "rows": 155896,
+      "bytes": 2203505,
+      "sha256": "e7cfd64d4ed0cf994436d71e578e498f61cc5a43ce955f3092e2afbfa0f8242d"
+    }
+  ]
+}
