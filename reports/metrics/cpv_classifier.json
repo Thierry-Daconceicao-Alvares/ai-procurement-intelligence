@@ -1,0 +1,285 @@
+{
+  "train_contracts": 864439,
+  "baseline": {
+    "test_contracts": 297339,
+    "accuracy": 0.7602,
+    "macro_f1": 0.5019,
+    "weighted_f1": 0.7427,
+    "top3_accuracy": 0.9063,
+    "by_confidence": [
+      {
+        "min_probability": 0.5,
+        "coverage": 0.1647,
+        "accuracy": 0.9667
+      },
+      {
+        "min_probability": 0.7,
+        "coverage": 0.0913,
+        "accuracy": 0.9725
+      },
+      {
+        "min_probability": 0.9,
+        "coverage": 0.0357,
+        "accuracy": 0.9746
+      }
+    ],
+    "f1_by_division": {
+      "03": 0.5378,
+      "09": 0.6668,
+      "14": 0.5077,
+      "15": 0.8449,
+      "16": 0.5975,
+      "18": 0.7253,
+      "19": 0.1436,
+      "22": 0.6673,
+      "24": 0.5593,
+      "30": 0.6528,
+      "31": 0.3855,
+      "32": 0.4274,
+      "33": 0.8371,
+      "34": 0.6958,
+      "35": 0.2042,
+      "37": 0.5231,
+      "38": 0.5719,
+      "39": 0.6416,
+      "41": 0.0362,
+      "42": 0.2307,
+      "43": 0.2488,
+      "44": 0.3658,
+      "45": 0.8942,
+      "48": 0.2175,
+      "50": 0.6445,
+      "51": 0.0578,
+      "55": 0.7588,
+      "60": 0.7666,
+      "63": 0.3845,
+      "64": 0.6045,
+      "65": 0.0236,
+      "66": 0.8611,
+      "70": 0.2557,
+      "71": 0.7391,
+      "72": 0.6716,
+      "73": 0.0346,
+      "75": 0.2367,
+      "76": 0.0,
+      "77": 0.7463,
+      "79": 0.6177,
+      "80": 0.7337,
+      "85": 0.5421,
+      "90": 0.7403,
+      "92": 0.6008,
+      "98": 0.3818
+    },
+    "top_confusions": [
+      {
+        "declared": "71",
+        "predicted": "45",
+        "n": 4674
+      },
+      {
+        "declared": "44",
+        "predicted": "45",
+        "n": 3761
+      },
+      {
+        "declared": "79",
+        "predicted": "71",
+        "n": 2697
+      },
+      {
+        "declared": "45",
+        "predicted": "71",
+        "n": 1773
+      },
+      {
+        "declared": "45",
+        "predicted": "50",
+        "n": 1235
+      },
+      {
+        "declared": "48",
+        "predicted": "72",
+        "n": 1222
+      },
+      {
+        "declared": "90",
+        "predicted": "45",
+        "n": 1116
+      },
+      {
+        "declared": "39",
+        "predicted": "45",
+        "n": 1060
+      },
+      {
+        "declared": "90",
+        "predicted": "71",
+        "n": 885
+      },
+      {
+        "declared": "09",
+        "predicted": "45",
+        "n": 878
+      }
+    ],
+    "fit_seconds": 56
+  },
+  "model": {
+    "test_contracts": 297339,
+    "accuracy": 0.7885,
+    "macro_f1": 0.5431,
+    "weighted_f1": 0.7718,
+    "top3_accuracy": 0.9211,
+    "by_confidence": [
+      {
+        "min_probability": 0.5,
+        "coverage": 0.776,
+        "accuracy": 0.8843
+      },
+      {
+        "min_probability": 0.7,
+        "coverage": 0.5655,
+        "accuracy": 0.9336
+      },
+      {
+        "min_probability": 0.9,
+        "coverage": 0.1411,
+        "accuracy": 0.9716
+      }
+    ],
+    "f1_by_division": {
+      "03": 0.5725,
+      "09": 0.6597,
+      "14": 0.4834,
+      "15": 0.8619,
+      "16": 0.6576,
+      "18": 0.7486,
+      "19": 0.2637,
+      "22": 0.7106,
+      "24": 0.645,
+      "30": 0.6967,
+      "31": 0.4426,
+      "32": 0.4439,
+      "33": 0.8279,
+      "34": 0.7379,
+      "35": 0.244,
+      "37": 0.5865,
+      "38": 0.6093,
+      "39": 0.681,
+      "41": 0.0231,
+      "42": 0.3242,
+      "43": 0.2371,
+      "44": 0.4449,
+      "45": 0.896,
+      "48": 0.38,
+      "50": 0.735,
+      "51": 0.0637,
+      "55": 0.8063,
+      "60": 0.8277,
+      "63": 0.3809,
+      "64": 0.6673,
+      "65": 0.1278,
+      "66": 0.9028,
+      "70": 0.3363,
+      "71": 0.8139,
+      "72": 0.6944,
+      "73": 0.0,
+      "75": 0.2242,
+      "76": 0.0,
+      "77": 0.7864,
+      "79": 0.6368,
+      "80": 0.7797,
+      "85": 0.6109,
+      "90": 0.7985,
+      "92": 0.624,
+      "98": 0.4435
+    },
+    "top_confusions": [
+      {
+        "declared": "44",
+        "predicted": "45",
+        "n": 3708
+      },
+      {
+        "declared": "71",
+        "predicted": "45",
+        "n": 2633
+      },
+      {
+        "declared": "79",
+        "predicted": "71",
+        "n": 2624
+      },
+      {
+        "declared": "33",
+        "predicted": "45",
+        "n": 1529
+      },
+      {
+        "declared": "90",
+        "predicted": "45",
+        "n": 1385
+      },
+      {
+        "declared": "39",
+        "predicted": "45",
+        "n": 1280
+      },
+      {
+        "declared": "50",
+        "predicted": "45",
+        "n": 1142
+      },
+      {
+        "declared": "09",
+        "predicted": "45",
+        "n": 1053
+      },
+      {
+        "declared": "77",
+        "predicted": "45",
+        "n": 979
+      },
+      {
+        "declared": "34",
+        "predicted": "45",
+        "n": 978
+      }
+    ],
+    "fit_seconds": 173,
+    "wrong_codes_injected": {
+      "sample": 20000,
+      "seed": 7,
+      "wrong_code": "another division, drawn from the distribution of declared divisions",
+      "recall": 0.1356,
+      "flag_rate_declared_codes": 0.0036,
+      "trade_off": [
+        {
+          "min_probability": 0.9,
+          "max_declared_probability": 0.02,
+          "recall": 0.1356,
+          "flag_rate_declared_codes": 0.0036
+        },
+        {
+          "min_probability": 0.7,
+          "max_declared_probability": 0.02,
+          "recall": 0.494,
+          "flag_rate_declared_codes": 0.0155
+        },
+        {
+          "min_probability": 0.5,
+          "max_declared_probability": 0.05,
+          "recall": 0.7101,
+          "flag_rate_declared_codes": 0.0457
+        },
+        {
+          "min_probability": 0.0,
+          "max_declared_probability": 0.05,
+          "recall": 0.868,
+          "flag_rate_declared_codes": 0.081
+        }
+      ]
+    }
+  },
+  "flagged_contracts": 6788
+}

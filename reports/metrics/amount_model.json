@@ -1,0 +1,39 @@
+{
+  "contracts_scored": 1444497,
+  "contracts_trained": 1443703,
+  "features": [
+    "cpv_division",
+    "cpv_group",
+    "contract_type",
+    "contract_nature",
+    "procedure_type",
+    "price_form",
+    "price_variation",
+    "buyer_category",
+    "buyer_region_code",
+    "lead_holder_size",
+    "is_framework",
+    "notification_year",
+    "duration_months",
+    "offers_received",
+    "holder_count",
+    "buyer_median_log",
+    "buyer_p90_log",
+    "buyer_contracts",
+    "description_words"
+  ],
+  "mae_log10": 0.40030141905521127,
+  "median_abs_error_log10": 0.30357895170931215,
+  "mae_log10_median_baseline": 0.5610085463787357,
+  "r2_log10": 0.48967287393407777,
+  "fold_mae_log10": [
+    0.40077101271984056,
+    0.4003729682734393,
+    0.3997603056137494
+  ],
+  "spread_min_contracts": 30,
+  "spread_shrinkage_contracts": 100,
+  "implausible_high": 1467,
+  "implausible_low": 1766,
+  "atypical": 9515
+}

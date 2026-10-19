@@ -1,0 +1,33 @@
+{
+  "total": 318343,
+  "by_type": {
+    "Data quality / duplicate_declarations / low": 142781,
+    "Data quality / duplicate_declarations / medium": 12405,
+    "Data quality / framework_split_records / low": 9704,
+    "Data quality / framework_split_records / medium": 2934,
+    "Data quality / implausible_amount / high": 12448,
+    "Data quality / joint_purchase_records / low": 2107,
+    "Data quality / joint_purchase_records / medium": 538,
+    "Price and amount drift / amount_increase / high": 11797,
+    "Price and amount drift / amount_increase / low": 9814,
+    "Price and amount drift / amount_increase / medium": 7023,
+    "Price and amount drift / atypical_amount / medium": 9404,
+    "Spend classification / cpv_mismatch / low": 6593,
+    "Spend classification / cpv_mismatch / medium": 195,
+    "Supplier risk / newly_created_supplier / high": 49,
+    "Supplier risk / newly_created_supplier / medium": 171,
+    "Supplier risk / supplier_ceased_before_award / medium": 6304,
+    "Supplier risk / supplier_dependency / high": 1673,
+    "Supplier risk / supplier_dependency / medium": 8025,
+    "Supplier risk / unusual_supplier_activity / low": 7156,
+    "Supplier risk / unusual_supplier_activity / medium": 1449,
+    "Value leakage and competition / buyer_single_bid_rate / high": 164,
+    "Value leakage and competition / buyer_single_bid_rate / medium": 232,
+    "Value leakage and competition / non_competitive_award / high": 12360,
+    "Value leakage and competition / non_competitive_award / medium": 25679,
+    "Value leakage and competition / possible_splitting / high": 1405,
+    "Value leakage and competition / possible_splitting / medium": 5209,
+    "Value leakage and competition / single_bid / high": 8070,
+    "Value leakage and competition / single_bid / medium": 12654
+  }
+}

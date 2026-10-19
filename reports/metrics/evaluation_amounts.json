@@ -1,0 +1,74 @@
+{
+  "sample": 20000,
+  "seed": 7,
+  "selection": "contracts that pass the amount rules and that both the model and the benchmark find typical (|z| < 3.5)",
+  "by_error": {
+    "x10": {
+      "contracts": 3891,
+      "model": {
+        "recall_implausible": 0.0059,
+        "recall_review": 0.0918
+      },
+      "segment_benchmark": {
+        "recall_implausible": 0.0049,
+        "recall_review": 0.0612
+      }
+    },
+    "x100": {
+      "contracts": 4072,
+      "model": {
+        "recall_implausible": 0.2571,
+        "recall_review": 0.7431
+      },
+      "segment_benchmark": {
+        "recall_implausible": 0.0975,
+        "recall_review": 0.4762
+      }
+    },
+    "x1000": {
+      "contracts": 3952,
+      "model": {
+        "recall_implausible": 0.8295,
+        "recall_review": 0.9658
+      },
+      "segment_benchmark": {
+        "recall_implausible": 0.5402,
+        "recall_review": 0.8793
+      }
+    },
+    "/100": {
+      "contracts": 3968,
+      "model": {
+        "recall_implausible": 0.277,
+        "recall_review": 0.7654
+      },
+      "segment_benchmark": {
+        "recall_implausible": 0.1094,
+        "recall_review": 0.4786
+      }
+    },
+    "/1000": {
+      "contracts": 4117,
+      "model": {
+        "recall_implausible": 0.8795,
+        "recall_review": 0.982
+      },
+      "segment_benchmark": {
+        "recall_implausible": 0.634,
+        "recall_review": 0.8851
+      }
+    }
+  },
+  "model": {
+    "recall_implausible": 0.4534,
+    "recall_review": 0.714,
+    "flag_rate_published_implausible": 0.00224,
+    "flag_rate_published_review": 0.00887
+  },
+  "segment_benchmark": {
+    "recall_implausible": 0.2797,
+    "recall_review": 0.5597,
+    "flag_rate_published_implausible": 0.00203,
+    "flag_rate_published_review": 0.013
+  }
+}

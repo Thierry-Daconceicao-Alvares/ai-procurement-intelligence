@@ -1,0 +1,24 @@
+{
+  "raw_rows": 3306573,
+  "contracts_in_window": 1807512,
+  "duplicate_records_removed": 248641,
+  "framework_records_merged": 32550,
+  "joint_purchase_records_merged": 6648,
+  "contracts_kept": 1519673,
+  "amounts_missing": 66218,
+  "amounts_implausible": 12448,
+  "amounts_implausible_by_issue": {
+    "out_of_bounds": 8910,
+    "far_from_expected": 2696,
+    "placeholder": 810,
+    "default_ceiling": 32
+  },
+  "amounts_valid": 1441007,
+  "reported_value_implausible_eur": 6203544815932.101,
+  "reported_value_all_records_eur": 14024516585448.086,
+  "awarded_value_valid_eur": 1099536140415.2556,
+  "awarded_value_excluding_frameworks_eur": 443370026890.7865,
+  "buyers": 28817,
+  "suppliers": 160677,
+  "individual_entrepreneurs_masked": 14405
+}

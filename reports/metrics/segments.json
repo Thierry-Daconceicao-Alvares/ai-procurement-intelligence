@@ -1,0 +1,58 @@
+{
+  "supplier_segments": [
+    {
+      "segment": "Distant specialists",
+      "suppliers": 9299,
+      "median_contracts": 6.0,
+      "median_buyers": 4.0,
+      "median_value": 764164.06,
+      "median_top_buyer_share": 0.521
+    },
+    {
+      "segment": "Large-contract holders",
+      "suppliers": 11393,
+      "median_contracts": 6.0,
+      "median_buyers": 3.0,
+      "median_value": 4150000.0,
+      "median_top_buyer_share": 0.856
+    },
+    {
+      "segment": "Local specialists",
+      "suppliers": 18099,
+      "median_contracts": 8.0,
+      "median_buyers": 5.0,
+      "median_value": 765904.645,
+      "median_top_buyer_share": 0.454
+    },
+    {
+      "segment": "National multi-category suppliers",
+      "suppliers": 4274,
+      "median_contracts": 57.0,
+      "median_buyers": 34.0,
+      "median_value": 21595042.177,
+      "median_top_buyer_share": 0.269
+    },
+    {
+      "segment": "Regional generalists",
+      "suppliers": 12966,
+      "median_contracts": 29.0,
+      "median_buyers": 15.0,
+      "median_value": 6474397.605,
+      "median_top_buyer_share": 0.324
+    },
+    {
+      "segment": "Suppliers dependent on one buyer",
+      "suppliers": 14498,
+      "median_contracts": 4.0,
+      "median_buyers": 2.0,
+      "median_value": 265000.002,
+      "median_top_buyer_share": 0.901
+    }
+  ],
+  "kraljic_quadrants": {
+    "Leverage": 78,
+    "Bottleneck": 72,
+    "Non-critical": 55,
+    "Strategic": 51
+  }
+}
