@@ -12,9 +12,13 @@ license = "MIT"
 authors = [{ name = "Thierry Daconceição Alvares" }]
 dependencies = [
     "duckdb==1.5.6",
+    "lightgbm==4.7.0",
     "numpy==2.5.4",
     "pandas==3.0.6",
     "pyarrow==26.0.0",
+    "python-dotenv==1.2.4",
+    "scikit-learn==1.9.1",
+    "scipy==1.18.1",
 ]
 
 [project.optional-dependencies]

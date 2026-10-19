@@ -1,0 +1,23 @@
+threshold,contract_scope,buyer_scope,amount_eur,valid_from,valid_to,legal_basis,source
+no_competition,supplies_services,all,25000,2016-04-01,2019-12-31,"Décret n° 2016-360, art. 30",https://www.legifrance.gouv.fr
+no_competition,supplies_services,all,40000,2020-01-01,2026-03-31,"Décret n° 2019-1344 du 12 décembre 2019 (art. R. 2122-8)",https://www.legifrance.gouv.fr
+no_competition,supplies_services,all,60000,2026-04-01,2099-12-31,"Décret n° 2025-1386 du 29 décembre 2025 (art. R. 2122-8)",https://blog.landot-avocats.net/2025/12/30/rehaussement-des-seuils-de-dispense-de-publicite-et-de-mise-en-concurrence-decryptage-du-decret-n-2025-1386-du-29-decembre-2025-modifiant-certains-seuils-relatifs-aux-marches-publics/
+no_competition,works,all,25000,2016-04-01,2019-12-31,"Décret n° 2016-360, art. 30",https://www.legifrance.gouv.fr
+no_competition,works,all,40000,2020-01-01,2020-12-07,"Décret n° 2019-1344 du 12 décembre 2019 (art. R. 2122-8)",https://www.legifrance.gouv.fr
+no_competition,works,all,100000,2020-12-08,2025-12-31,"Loi n° 2020-1525 (ASAP), art. 142, extended by décrets n° 2022-1683 and n° 2024-1217",https://www.code-commande-publique.com/prolongation-du-seuil-de-dispense-de-publicite-et-de-mise-en-concurrence-prealables-pour-les-marches-de-travaux
+no_competition,works,all,100000,2026-01-01,2099-12-31,"Décret n° 2025-1386 du 29 décembre 2025 (art. R. 2122-8)",https://blog.landot-avocats.net/2025/12/30/rehaussement-des-seuils-de-dispense-de-publicite-et-de-mise-en-concurrence-decryptage-du-decret-n-2025-1386-du-29-decembre-2025-modifiant-certains-seuils-relatifs-aux-marches-publics/
+eu_formal,supplies_services,central_government,144000,2018-01-01,2019-12-31,"Regulation (EU) 2017/2365",https://www.economie.gouv.fr/daj/marches-publics-les-seuils-europeens-applicables-compter-du-1er-janvier-2020-sont-publies
+eu_formal,supplies_services,other_authorities,221000,2018-01-01,2019-12-31,"Regulation (EU) 2017/2365",https://www.economie.gouv.fr/daj/marches-publics-les-seuils-europeens-applicables-compter-du-1er-janvier-2020-sont-publies
+eu_formal,works,all,5548000,2018-01-01,2019-12-31,"Regulation (EU) 2017/2365",https://www.economie.gouv.fr/daj/marches-publics-les-seuils-europeens-applicables-compter-du-1er-janvier-2020-sont-publies
+eu_formal,supplies_services,central_government,139000,2020-01-01,2021-12-31,"Regulation (EU) 2019/1828",https://www.economie.gouv.fr/daj/marches-publics-les-seuils-europeens-applicables-compter-du-1er-janvier-2020-sont-publies
+eu_formal,supplies_services,other_authorities,214000,2020-01-01,2021-12-31,"Regulation (EU) 2019/1828",https://www.economie.gouv.fr/daj/marches-publics-les-seuils-europeens-applicables-compter-du-1er-janvier-2020-sont-publies
+eu_formal,works,all,5350000,2020-01-01,2021-12-31,"Regulation (EU) 2019/1828",https://www.economie.gouv.fr/daj/marches-publics-les-seuils-europeens-applicables-compter-du-1er-janvier-2020-sont-publies
+eu_formal,supplies_services,central_government,140000,2022-01-01,2023-12-31,"Regulation (EU) 2021/1952",https://www.economie.gouv.fr/node/2419580
+eu_formal,supplies_services,other_authorities,215000,2022-01-01,2023-12-31,"Regulation (EU) 2021/1952",https://www.economie.gouv.fr/node/2419580
+eu_formal,works,all,5382000,2022-01-01,2023-12-31,"Regulation (EU) 2021/1952",https://www.economie.gouv.fr/node/2419580
+eu_formal,supplies_services,central_government,143000,2024-01-01,2025-12-31,"Regulation (EU) 2023/2495",https://www.marche-public.fr/contrats-publics/CCP-publication-nouveaux-seuils-2026.htm
+eu_formal,supplies_services,other_authorities,221000,2024-01-01,2025-12-31,"Regulation (EU) 2023/2495",https://www.marche-public.fr/contrats-publics/CCP-publication-nouveaux-seuils-2026.htm
+eu_formal,works,all,5538000,2024-01-01,2025-12-31,"Regulation (EU) 2023/2495",https://www.marche-public.fr/contrats-publics/CCP-publication-nouveaux-seuils-2026.htm
+eu_formal,supplies_services,central_government,140000,2026-01-01,2027-12-31,"Regulation of the European Commission, thresholds 2026-2027",https://www.marche-public.fr/contrats-publics/CCP-publication-nouveaux-seuils-2026.htm
+eu_formal,supplies_services,other_authorities,216000,2026-01-01,2027-12-31,"Regulation of the European Commission, thresholds 2026-2027",https://www.marche-public.fr/contrats-publics/CCP-publication-nouveaux-seuils-2026.htm
+eu_formal,works,all,5404000,2026-01-01,2027-12-31,"Regulation of the European Commission, thresholds 2026-2027",https://www.marche-public.fr/contrats-publics/CCP-publication-nouveaux-seuils-2026.htm
