@@ -1,0 +1,62 @@
+# Lint and tests on every push and pull request. The application tests run on
+# the committed marts; the raw data snapshot is not checked out.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          sparse-checkout: |
+            /*
+            !/data/snapshot/
+          sparse-checkout-cone-mode: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+          cache: pip
+      - name: Install
+        run: pip install -e ".[app,build,dev]"
+      - name: Lint
+        run: |
+          ruff check .
+          ruff format --check .
+      - name: Tests
+        run: pytest
+
+  docker:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          sparse-checkout: |
+            /*
+            !/data/snapshot/
+          sparse-checkout-cone-mode: false
+      - name: Build the image
+        run: docker build -t procurement-intelligence .
+      - name: Start the application and check its health
+        run: |
+          docker run -d --name app -p 8501:8501 procurement-intelligence
+          for attempt in $(seq 1 30); do
+            if curl -fsS http://localhost:8501/_stcore/health; then
+              echo " healthy after ${attempt} attempts"
+              exit 0
+            fi
+            sleep 2
+          done
+          docker logs app
+          echo "::error title=Docker::The application did not become healthy."
+          exit 1
+

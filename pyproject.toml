@@ -12,17 +12,23 @@ license = "MIT"
 authors = [{ name = "Thierry Daconceição Alvares" }]
 dependencies = [
     "duckdb==1.5.6",
-    "lightgbm==4.7.0",
+    "google-genai==2.31.0",
+    "joblib==1.6.0",
     "numpy==2.5.4",
     "pandas==3.0.6",
     "pyarrow==26.0.0",
+    "pydantic==2.14.1",
     "python-dotenv==1.2.4",
     "scikit-learn==1.9.1",
     "scipy==1.18.1",
 ]
 
 [project.optional-dependencies]
-dev = ["pytest==9.1.1", "ruff==0.17.1"]
+# The Streamlit application.
+app = ["plotly==7.1.0", "streamlit==1.66.0"]
+# The pipeline that builds the marts and models from the data snapshot.
+build = ["lightgbm==4.7.0"]
+dev = ["jsonschema==4.26.0", "playwright==1.64.0", "pytest==9.1.1", "ruff==0.17.1"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
