@@ -2,7 +2,7 @@
 
 The files in data/marts/ are the only data the application reads, and the
 source tables of the Power BI semantic model. Large tables are split into
-files of about 20 to 30 MB (GitHub recommends files under 50 MB).
+files of less than 30 MB (GitHub recommends files under 50 MB).
 """
 
 from __future__ import annotations
