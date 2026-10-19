@@ -2,6 +2,7 @@
 
 **Spend analytics, anomaly detection and supplier risk on 1.5 million French public contracts, with AI explanations that a reviewer validates.**
 
+[![Live demo](https://img.shields.io/badge/live%20demo-Streamlit-2a78d6)](https://ai-procurement-intelligence.streamlit.app)
 [![CI](https://github.com/Thierry-Daconceicao-Alvares/ai-procurement-intelligence/actions/workflows/ci.yml/badge.svg)](https://github.com/Thierry-Daconceicao-Alvares/ai-procurement-intelligence/actions/workflows/ci.yml)
 ![Python 3.13](https://img.shields.io/badge/python-3.13-2a78d6)
 ![DuckDB](https://img.shields.io/badge/SQL-DuckDB-2a78d6)
@@ -11,6 +12,9 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-2a78d6)](LICENSE)
 
 <p align="center"><img src="docs/images/demo.gif" alt="Review of an alert: evidence, explanation and decision" width="900"></p>
+
+**Try it: [ai-procurement-intelligence.streamlit.app](https://ai-procurement-intelligence.streamlit.app)**
+(public demo: AI explanations generated in advance, decisions kept for your session only).
 
 French public buyers publish the contracts they award: the consolidated file
 holds 3.3 million rows, open to anyone, and messy. The same award is often
