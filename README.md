@@ -64,6 +64,17 @@ reproducible from the frozen data snapshot: see [results](docs/results.md).
   <img src="docs/images/alert-review.png" alt="Alert review" width="49%">
 </p>
 
+<details>
+<summary>More pages of the application</summary>
+
+| Categories and markets | Suppliers and risk |
+|---|---|
+| ![Categories and markets](docs/images/categories.png) | ![Suppliers and risk](docs/images/suppliers.png) |
+| **Spend classification** | **Data quality and method** |
+| ![Spend classification](docs/images/classification.png) | ![Data quality and method](docs/images/data-quality.png) |
+
+</details>
+
 ## Architecture
 
 ```mermaid
