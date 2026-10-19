@@ -60,6 +60,14 @@ jobs:
           print("::notice title=AI texts::" + ", ".join(f"{k}={m.get(k)}" for k in keys))
           PY
           fi
+      - name: Keep the texts as an artifact
+        if: ${{ always() && hashFiles('data/marts/ai_texts.json') != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai-texts
+          path: |
+            data/marts/ai_texts.json
+            reports/metrics/ai_texts.json
       # Committed even when the daily quota stopped the run: the texts written
       # so far are verified, and the metrics record where the run stopped.
       - name: Commit the texts
@@ -75,5 +83,7 @@ jobs:
             echo "Nothing to commit."
           else
             git commit -m "Generate the AI texts of the public demo"
-            git push
+            # main may have moved during the run: put the texts on top of it.
+            git pull --rebase origin main
+            git push origin HEAD:main
           fi
