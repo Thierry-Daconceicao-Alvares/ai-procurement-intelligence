@@ -1,0 +1,15 @@
+# Dependencies of the Streamlit application: Streamlit Community Cloud installs
+# them from this file. To build the data and models, install the whole project
+# instead: pip install -e ".[app,build,dev]"
+duckdb==1.5.6
+google-genai==2.31.0
+joblib==1.6.0
+numpy==2.5.4
+pandas==3.0.6
+plotly==7.1.0
+pyarrow==26.0.0
+pydantic==2.14.1
+python-dotenv==1.2.4
+scikit-learn==1.9.1
+scipy==1.18.1
+streamlit==1.66.0

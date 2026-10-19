@@ -1,0 +1,16 @@
+.git
+.github
+.venv
+venv
+**/__pycache__
+.pytest_cache
+.ruff_cache
+.env
+.streamlit/secrets.toml
+data/snapshot
+data/cache
+data/decisions
+raw
+docs
+powerbi
+tests
