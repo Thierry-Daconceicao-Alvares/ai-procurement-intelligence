@@ -658,7 +658,7 @@ def render_table(table: Table) -> str:
         if column.key:
             out += ["\t\tisKey"]
         if column.format:
-            out += [f"\t\tformatString: {column.format}"]
+            out += [f"\t\tformatString: {tmdl_text(column.format)}"]
         out += [
             f"\t\tlineageTag: {tag('column', table.name, column.name)}",
             f"\t\tsummarizeBy: {column.summarize}",
@@ -673,6 +673,14 @@ def render_table(table: Table) -> str:
     out += ["\t\t\t\t" + line for line in table.source.splitlines()]
     out += ["", "\tannotation PBI_ResultType = Table", ""]
     return "\n".join(out)
+
+
+def tmdl_text(value: str) -> str:
+    """A text property value: quoted, with its quotes doubled, when it contains
+    a quote or starts or ends with a space (as Power BI Desktop writes it)."""
+    if '"' in value or value != value.strip():
+        return '"' + value.replace('"', '""') + '"'
+    return value
 
 
 def render_measures_table() -> str:
@@ -691,7 +699,7 @@ def render_measures_table() -> str:
             out += [f"\tmeasure {quote(measure.name)} ="]
             out += ["\t\t\t" + line for line in lines]
         out += [
-            f"\t\tformatString: {measure.format}",
+            f"\t\tformatString: {tmdl_text(measure.format)}",
             f"\t\tdisplayFolder: {measure.folder}",
             f"\t\tlineageTag: {tag('measure', measure.name)}",
             "",

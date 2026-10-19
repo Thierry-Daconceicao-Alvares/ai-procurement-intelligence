@@ -90,7 +90,7 @@ table Contracts
 	/// Framework agreement: the amount is a maximum.
 	column is_framework
 		dataType: boolean
-		formatString: "TRUE";"TRUE";"FALSE"
+		formatString: """TRUE"";""TRUE"";""FALSE"""
 		lineageTag: 757f9353-3170-5fc3-b2dc-13f8ace16074
 		summarizeBy: none
 		sourceColumn: is_framework

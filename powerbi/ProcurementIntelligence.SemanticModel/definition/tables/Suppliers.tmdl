@@ -20,7 +20,7 @@ table Suppliers
 
 	column is_individual_entrepreneur
 		dataType: boolean
-		formatString: "TRUE";"TRUE";"FALSE"
+		formatString: """TRUE"";""TRUE"";""FALSE"""
 		lineageTag: 3dcb69c5-3c0b-5722-ae20-19760336ae2c
 		summarizeBy: none
 		sourceColumn: is_individual_entrepreneur
@@ -98,7 +98,7 @@ table Suppliers
 
 	column is_ceased
 		dataType: boolean
-		formatString: "TRUE";"TRUE";"FALSE"
+		formatString: """TRUE"";""TRUE"";""FALSE"""
 		lineageTag: f4e83259-0112-5aa8-8c55-8419f2c6bee7
 		summarizeBy: none
 		sourceColumn: is_ceased
@@ -126,7 +126,7 @@ table Suppliers
 
 	column is_social_economy
 		dataType: boolean
-		formatString: "TRUE";"TRUE";"FALSE"
+		formatString: """TRUE"";""TRUE"";""FALSE"""
 		lineageTag: 225dd061-49dc-5a99-b32d-20c3e3840dbf
 		summarizeBy: none
 		sourceColumn: is_social_economy
@@ -135,7 +135,7 @@ table Suppliers
 
 	column found_in_sirene
 		dataType: boolean
-		formatString: "TRUE";"TRUE";"FALSE"
+		formatString: """TRUE"";""TRUE"";""FALSE"""
 		lineageTag: dc62a4a0-e0c9-5116-85f6-7dcdaeebf86e
 		summarizeBy: none
 		sourceColumn: found_in_sirene
