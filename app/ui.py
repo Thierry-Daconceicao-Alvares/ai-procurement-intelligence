@@ -37,8 +37,15 @@ def settings() -> Settings:
 
 
 @st.cache_resource(show_spinner=False)
-def connection():
+def _database():
     return analytics.connect(settings().marts_dir)
+
+
+def connection():
+    """A cursor of the shared database for each query: a DuckDB connection must
+    not run queries from several threads (sessions and pages) at the same time,
+    or one query may read the result of another."""
+    return _database().cursor()
 
 
 @st.cache_data(show_spinner=False)

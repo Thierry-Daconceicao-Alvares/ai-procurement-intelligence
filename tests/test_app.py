@@ -49,3 +49,21 @@ def test_review_queue_lists_alerts_by_default(public_demo):
     assert not app.exception
     assert app.dataframe
     assert any("alerts shown" in caption.value for caption in app.caption)
+
+
+def test_concurrent_sessions_read_their_own_results():
+    """Sessions run in parallel threads: each query must get its own result."""
+    import sys
+    from concurrent.futures import ThreadPoolExecutor
+
+    sys.path.insert(0, str(APP.parent))
+    import ui
+
+    queries = {n: f"SELECT {n} AS n, count(*) FROM range({n} * 200000)" for n in range(1, 9)}
+
+    def run(n):
+        return ui.connection().execute(queries[n]).fetchone()[0]
+
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        for _ in range(5):
+            assert list(pool.map(run, queries)) == list(queries)
