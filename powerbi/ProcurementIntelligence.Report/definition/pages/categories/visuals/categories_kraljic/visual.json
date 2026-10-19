@@ -1,0 +1,119 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.2.0/schema.json",
+  "name": "categories_kraljic",
+  "position": {
+    "x": 24,
+    "y": 136,
+    "z": 4000,
+    "height": 568,
+    "width": 600,
+    "tabOrder": 4000
+  },
+  "visual": {
+    "visualType": "scatterChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "CategoryMarkets"
+                    }
+                  },
+                  "Property": "cpv_group_label"
+                }
+              },
+              "queryRef": "CategoryMarkets.cpv_group_label",
+              "nativeQueryRef": "cpv_group_label",
+              "displayName": "CPV group",
+              "active": true
+            }
+          ]
+        },
+        "Series": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "CategoryMarkets"
+                    }
+                  },
+                  "Property": "kraljic_quadrant"
+                }
+              },
+              "queryRef": "CategoryMarkets.kraljic_quadrant",
+              "nativeQueryRef": "kraljic_quadrant",
+              "displayName": "Quadrant"
+            }
+          ]
+        },
+        "X": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Measures"
+                    }
+                  },
+                  "Property": "Market Value Percentile"
+                }
+              },
+              "queryRef": "Measures.Market Value Percentile",
+              "nativeQueryRef": "Market Value Percentile",
+              "displayName": "Value at stake"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Measures"
+                    }
+                  },
+                  "Property": "Market Supply Risk"
+                }
+              },
+              "queryRef": "Measures.Market Supply Risk",
+              "nativeQueryRef": "Market Supply Risk",
+              "displayName": "Supply risk"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Kraljic matrix of public markets'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

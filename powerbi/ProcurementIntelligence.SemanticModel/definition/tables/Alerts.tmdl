@@ -1,0 +1,169 @@
+/// One alert to review: a risk indicator computed from the published data, with its priority, title and recommended action. The evidence (JSON) stays in the marts.
+table Alerts
+	lineageTag: 905ca483-f457-5077-8a94-0923b01c07fe
+
+	column alert_id
+		dataType: string
+		lineageTag: 32229e5c-b524-538b-8d0c-2cd56d27041d
+		summarizeBy: none
+		sourceColumn: alert_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column alert_type
+		dataType: string
+		lineageTag: 03808993-e197-5b83-aaa1-bb208014c1e7
+		summarizeBy: none
+		sourceColumn: alert_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column category
+		dataType: string
+		lineageTag: 18cd16d6-508d-5bcc-8b0d-b0545d886e0a
+		summarizeBy: none
+		sourceColumn: category
+
+		annotation SummarizationSetBy = Automatic
+
+	column label
+		dataType: string
+		lineageTag: 3e0af23c-e71f-5cc7-ba1d-9f9ffc20c0de
+		summarizeBy: none
+		sourceColumn: label
+
+		annotation SummarizationSetBy = Automatic
+
+	/// high, medium or low.
+	column severity
+		dataType: string
+		lineageTag: 7fd33ea3-00c0-5df6-9852-1a6f9eca2ca3
+		summarizeBy: none
+		sourceColumn: severity
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Severity points plus the order of magnitude of the amount at stake.
+	column priority
+		dataType: double
+		formatString: 0.0
+		lineageTag: aba366a5-1ef0-57dc-b23d-b05d21485940
+		summarizeBy: none
+		sourceColumn: priority
+
+		annotation SummarizationSetBy = Automatic
+
+	column uid
+		dataType: string
+		lineageTag: 4cfe7950-f17d-5288-98c1-8f2907af8b8e
+		summarizeBy: none
+		sourceColumn: uid
+
+		annotation SummarizationSetBy = Automatic
+
+	column buyer_siret
+		dataType: string
+		lineageTag: ef58b547-3088-517d-ac7c-426af6657cfc
+		summarizeBy: none
+		sourceColumn: buyer_siret
+
+		annotation SummarizationSetBy = Automatic
+
+	column holder_key
+		dataType: string
+		lineageTag: 692fb65c-2047-55e1-96bf-74162bfdd4ae
+		summarizeBy: none
+		sourceColumn: holder_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column cpv_division
+		dataType: string
+		lineageTag: 92b96011-acf4-50b9-ac94-dc4d05bf103b
+		summarizeBy: none
+		sourceColumn: cpv_division
+
+		annotation SummarizationSetBy = Automatic
+
+	column reference_date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 54816d70-b79f-5d04-896f-98f56d21b49c
+		summarizeBy: none
+		sourceColumn: reference_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	/// Amount the alert is about; not a loss.
+	column amount_at_stake
+		dataType: double
+		formatString: €#,0
+		lineageTag: c4739e6f-24bf-540c-8b86-58e8ae812390
+		summarizeBy: sum
+		sourceColumn: amount_at_stake
+
+		annotation SummarizationSetBy = Automatic
+
+	column title
+		dataType: string
+		lineageTag: ba3feede-ffda-591c-bad5-93e83ef04d73
+		summarizeBy: none
+		sourceColumn: title
+
+		annotation SummarizationSetBy = Automatic
+
+	column recommended_action
+		dataType: string
+		lineageTag: e3c4747d-f02a-56af-bd5e-16aeef339586
+		summarizeBy: none
+		sourceColumn: recommended_action
+
+		annotation SummarizationSetBy = Automatic
+
+	column reference
+		dataType: string
+		lineageTag: 30d9b8ce-846a-53c2-b340-c24bb2be502f
+		summarizeBy: none
+		sourceColumn: reference
+
+		annotation SummarizationSetBy = Automatic
+
+	column buyer_name
+		dataType: string
+		lineageTag: 98eb4b73-1d48-507b-bf29-1512a25df1f4
+		summarizeBy: none
+		sourceColumn: buyer_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column supplier_name
+		dataType: string
+		lineageTag: 45890951-c59a-503c-9db4-a4d3f5c71a98
+		summarizeBy: none
+		sourceColumn: supplier_name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Alerts = m
+		mode: import
+		source =
+				let
+				    Root = Text.TrimEnd(DataFolder, "\") & "\",
+				    Files = Folder.Files(Root),
+				    InRoot = Table.SelectRows(Files, each Text.Lower([Folder Path]) = Text.Lower(Root)),
+				    AlertFiles = Table.SelectRows(Files, each Text.Lower([Folder Path]) = Text.Lower(Root & "alerts\") and Text.Lower([Extension]) = ".parquet"),
+				    Alerts = Table.Combine(List.Transform(AlertFiles[Content], each Parquet.Document(_))),
+				    WithoutEvidence = Table.RemoveColumns(Alerts, {"evidence"}),
+				    Buyers = Table.SelectRows(Table.SelectColumns(Parquet.Document(InRoot{[Name = "buyers.parquet"]}[Content]), {"buyer_siret", "buyer_name"}), each [buyer_siret] <> null),
+				    Suppliers = Table.SelectColumns(Parquet.Document(InRoot{[Name = "suppliers.parquet"]}[Content]), {"holder_key", "supplier_name"}),
+				    WithBuyer = Table.NestedJoin(WithoutEvidence, {"buyer_siret"}, Buyers, {"buyer_siret"}, "Buyer", JoinKind.LeftOuter),
+				    BuyerName = Table.ExpandTableColumn(WithBuyer, "Buyer", {"buyer_name"}),
+				    WithSupplier = Table.NestedJoin(BuyerName, {"holder_key"}, Suppliers, {"holder_key"}, "Supplier", JoinKind.LeftOuter),
+				    SupplierName = Table.ExpandTableColumn(WithSupplier, "Supplier", {"supplier_name"}),
+				    Typed = Table.TransformColumnTypes(SupplierName, {{"buyer_name", type text}, {"supplier_name", type text}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

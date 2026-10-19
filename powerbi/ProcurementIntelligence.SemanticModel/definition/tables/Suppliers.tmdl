@@ -1,0 +1,233 @@
+/// One supplier (SIREN). Names of individual entrepreneurs are withheld. Suppliers with at least three contracts have a segment and profile metrics.
+table Suppliers
+	lineageTag: 296e22f7-8cf1-50c4-bc0e-4353ebcba930
+
+	column holder_key
+		dataType: string
+		lineageTag: 1eb8fa36-72f9-5beb-8b5f-ad06826b2db7
+		summarizeBy: none
+		sourceColumn: holder_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column holder_siren
+		dataType: string
+		lineageTag: a7959a76-e563-5d16-b378-3600f17f68d3
+		summarizeBy: none
+		sourceColumn: holder_siren
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_individual_entrepreneur
+		dataType: boolean
+		formatString: "TRUE";"TRUE";"FALSE"
+		lineageTag: 3dcb69c5-3c0b-5722-ae20-19760336ae2c
+		summarizeBy: none
+		sourceColumn: is_individual_entrepreneur
+
+		annotation SummarizationSetBy = Automatic
+
+	column supplier_name
+		dataType: string
+		lineageTag: 72c26b66-a15d-5407-b23a-700920505563
+		summarizeBy: none
+		sourceColumn: supplier_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column holder_size
+		dataType: string
+		lineageTag: a8e5673d-13b5-5b6a-a985-e40fd0183710
+		summarizeBy: none
+		sourceColumn: holder_size
+
+		annotation SummarizationSetBy = Automatic
+
+	column naf_code
+		dataType: string
+		lineageTag: c0d42390-a81a-5988-8115-32c862c03fef
+		summarizeBy: none
+		sourceColumn: naf_code
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Main activity (NAF), French label.
+	column naf_label
+		dataType: string
+		lineageTag: 9c0ea939-1b9a-5057-aa08-9f6244c4117f
+		summarizeBy: none
+		sourceColumn: naf_label
+
+		annotation SummarizationSetBy = Automatic
+
+	column department_code
+		dataType: string
+		lineageTag: fff87444-357b-5bad-8f4d-579a0051d5f8
+		summarizeBy: none
+		sourceColumn: department_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column region_code
+		dataType: string
+		lineageTag: d09cbeac-2f74-502d-a95b-52c1ded7dc58
+		summarizeBy: none
+		sourceColumn: region_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column legal_category_code
+		dataType: int64
+		formatString: 0
+		lineageTag: b21d6fe3-528b-56a9-bbb1-5e25c3107ae9
+		summarizeBy: none
+		sourceColumn: legal_category_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column creation_date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 852edc99-6820-5668-bf71-5ba008cfd909
+		summarizeBy: none
+		sourceColumn: creation_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column is_ceased
+		dataType: boolean
+		formatString: "TRUE";"TRUE";"FALSE"
+		lineageTag: f4e83259-0112-5aa8-8c55-8419f2c6bee7
+		summarizeBy: none
+		sourceColumn: is_ceased
+
+		annotation SummarizationSetBy = Automatic
+
+	column cessation_date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: c016903f-9cce-5ca9-a19f-a901151989ad
+		summarizeBy: none
+		sourceColumn: cessation_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column headcount_band
+		dataType: string
+		lineageTag: f4791c34-6f36-5b37-8935-ac084cc29631
+		summarizeBy: none
+		sourceColumn: headcount_band
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_social_economy
+		dataType: boolean
+		formatString: "TRUE";"TRUE";"FALSE"
+		lineageTag: 225dd061-49dc-5a99-b32d-20c3e3840dbf
+		summarizeBy: none
+		sourceColumn: is_social_economy
+
+		annotation SummarizationSetBy = Automatic
+
+	column found_in_sirene
+		dataType: boolean
+		formatString: "TRUE";"TRUE";"FALSE"
+		lineageTag: dc62a4a0-e0c9-5116-85f6-7dcdaeebf86e
+		summarizeBy: none
+		sourceColumn: found_in_sirene
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Segment of the supplier (k-means on its public business).
+	column segment
+		dataType: string
+		lineageTag: fca1e697-2694-5cdd-a92a-881ff4ecaa6b
+		summarizeBy: none
+		sourceColumn: segment
+
+		annotation SummarizationSetBy = Automatic
+
+	column profile_contracts
+		dataType: int64
+		formatString: 0
+		lineageTag: 9572cc76-9f3d-596f-825d-1fd35a647a8c
+		summarizeBy: none
+		sourceColumn: profile_contracts
+
+		annotation SummarizationSetBy = Automatic
+
+	column profile_buyers
+		dataType: int64
+		formatString: 0
+		lineageTag: d8a2cbb3-2b10-598d-aaa5-0ac641631fa4
+		summarizeBy: none
+		sourceColumn: profile_buyers
+
+		annotation SummarizationSetBy = Automatic
+
+	column profile_divisions
+		dataType: int64
+		formatString: 0
+		lineageTag: 2d56abc9-2154-591d-b1c3-62dd2b1898a0
+		summarizeBy: none
+		sourceColumn: profile_divisions
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Share of the supplier's value from its main buyer.
+	column top_buyer_share
+		dataType: double
+		formatString: 0.0%
+		lineageTag: e0df22ee-7391-5967-a488-6e6734acaf5a
+		summarizeBy: none
+		sourceColumn: top_buyer_share
+
+		annotation SummarizationSetBy = Automatic
+
+	column median_distance_km
+		dataType: double
+		formatString: #,0
+		lineageTag: d6a3fcfd-3c60-5b3d-991c-e37ea75d79a9
+		summarizeBy: none
+		sourceColumn: median_distance_km
+
+		annotation SummarizationSetBy = Automatic
+
+	column profile_single_bid_share
+		dataType: double
+		formatString: 0.0%
+		lineageTag: bef63072-ca6d-525c-be79-bca25339d293
+		summarizeBy: none
+		sourceColumn: profile_single_bid_share
+
+		annotation SummarizationSetBy = Automatic
+
+	column profile_framework_share
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 2f74fce3-3b0b-5bfb-ba51-cc608e54aa48
+		summarizeBy: none
+		sourceColumn: profile_framework_share
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Suppliers = m
+		mode: import
+		source =
+				let
+				    Root = Text.TrimEnd(DataFolder, "\") & "\",
+				    Files = Folder.Files(Root),
+				    InRoot = Table.SelectRows(Files, each Text.Lower([Folder Path]) = Text.Lower(Root)),
+				    Suppliers = Parquet.Document(InRoot{[Name = "suppliers.parquet"]}[Content]),
+				    Profiles = Parquet.Document(InRoot{[Name = "supplier_profiles.parquet"]}[Content]),
+				    Joined = Table.NestedJoin(Suppliers, {"holder_key"}, Profiles, {"holder_key"}, "Profile", JoinKind.LeftOuter),
+				    Expanded = Table.ExpandTableColumn(Joined, "Profile", {"segment", "contracts", "buyers", "divisions", "top_buyer_share", "median_distance_km", "single_bid_share", "framework_share"}, {"segment", "profile_contracts", "profile_buyers", "profile_divisions", "top_buyer_share", "median_distance_km", "profile_single_bid_share", "profile_framework_share"}),
+				    Typed = Table.TransformColumnTypes(Expanded, {{"segment", type text}, {"profile_contracts", Int64.Type}, {"profile_buyers", Int64.Type}, {"profile_divisions", Int64.Type}, {"top_buyer_share", type number}, {"median_distance_km", type number}, {"profile_single_bid_share", type number}, {"profile_framework_share", type number}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

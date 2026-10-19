@@ -1,0 +1,39 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.2.0/schema.json",
+  "name": "overview_card_buyers",
+  "position": {
+    "x": 440,
+    "y": 136,
+    "z": 7000,
+    "height": 88,
+    "width": 192,
+    "tabOrder": 7000
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Measures"
+                    }
+                  },
+                  "Property": "Buyers"
+                }
+              },
+              "queryRef": "Measures.Buyers",
+              "nativeQueryRef": "Buyers",
+              "displayName": "Buyers"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

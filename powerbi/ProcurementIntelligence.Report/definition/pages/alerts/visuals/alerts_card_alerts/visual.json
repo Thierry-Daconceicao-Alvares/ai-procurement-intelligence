@@ -1,0 +1,39 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.2.0/schema.json",
+  "name": "alerts_card_alerts",
+  "position": {
+    "x": 24,
+    "y": 136,
+    "z": 5000,
+    "height": 88,
+    "width": 400,
+    "tabOrder": 5000
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Measures"
+                    }
+                  },
+                  "Property": "Alerts"
+                }
+              },
+              "queryRef": "Measures.Alerts",
+              "nativeQueryRef": "Alerts",
+              "displayName": "Alerts"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

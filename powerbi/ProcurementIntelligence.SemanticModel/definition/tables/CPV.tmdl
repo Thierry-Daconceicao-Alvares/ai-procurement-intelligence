@@ -1,0 +1,94 @@
+/// Common Procurement Vocabulary (CPV 2008): every code with its division, group and class.
+table CPV
+	lineageTag: 52ed33f6-0bef-5543-9c19-c29acb59ca80
+
+	column cpv_code
+		dataType: string
+		lineageTag: 9ce0296d-0b8d-58a3-af95-d7b48bd896b5
+		summarizeBy: none
+		sourceColumn: cpv_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column cpv_label
+		dataType: string
+		lineageTag: 62b8d03c-3824-565c-983b-4858b979a3b0
+		summarizeBy: none
+		sourceColumn: cpv_label
+
+		annotation SummarizationSetBy = Automatic
+
+	column cpv_label_fr
+		dataType: string
+		lineageTag: 5dc5910c-5515-5c4a-9481-b89b65f4e144
+		summarizeBy: none
+		sourceColumn: cpv_label_fr
+
+		annotation SummarizationSetBy = Automatic
+
+	column cpv_level
+		dataType: string
+		lineageTag: 058492cd-5743-52b6-9537-863d80507681
+		summarizeBy: none
+		sourceColumn: cpv_level
+
+		annotation SummarizationSetBy = Automatic
+
+	column cpv_division
+		dataType: string
+		lineageTag: 28516f2e-4a51-5e48-a15a-10b677035f9d
+		summarizeBy: none
+		sourceColumn: cpv_division
+
+		annotation SummarizationSetBy = Automatic
+
+	column cpv_division_label
+		dataType: string
+		lineageTag: 5dba6351-7fec-5bef-8836-5ef6d82cd1eb
+		summarizeBy: none
+		sourceColumn: cpv_division_label
+
+		annotation SummarizationSetBy = Automatic
+
+	column cpv_group
+		dataType: string
+		lineageTag: 36eb861b-b365-536a-8c83-74080a6f1ee5
+		summarizeBy: none
+		sourceColumn: cpv_group
+
+		annotation SummarizationSetBy = Automatic
+
+	column cpv_group_label
+		dataType: string
+		lineageTag: 3915a529-c923-502c-a6d8-38e2b2e0e79e
+		summarizeBy: none
+		sourceColumn: cpv_group_label
+
+		annotation SummarizationSetBy = Automatic
+
+	column cpv_class
+		dataType: string
+		lineageTag: 98a96d81-3815-52d4-9824-fe02290d75f7
+		summarizeBy: none
+		sourceColumn: cpv_class
+
+		annotation SummarizationSetBy = Automatic
+
+	column cpv_class_label
+		dataType: string
+		lineageTag: 9ee7e486-8056-5ad8-8003-9b84aca6d38b
+		summarizeBy: none
+		sourceColumn: cpv_class_label
+
+		annotation SummarizationSetBy = Automatic
+
+	partition CPV = m
+		mode: import
+		source =
+				let
+				    Root = Text.TrimEnd(DataFolder, "\") & "\",
+				    Source = Parquet.Document(File.Contents(Root & "cpv.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

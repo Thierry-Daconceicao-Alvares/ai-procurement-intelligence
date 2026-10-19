@@ -1,0 +1,39 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.2.0/schema.json",
+  "name": "alerts_card_high",
+  "position": {
+    "x": 440,
+    "y": 136,
+    "z": 6000,
+    "height": 88,
+    "width": 400,
+    "tabOrder": 6000
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Measures"
+                    }
+                  },
+                  "Property": "High-severity Alerts"
+                }
+              },
+              "queryRef": "Measures.High-severity Alerts",
+              "nativeQueryRef": "High-severity Alerts",
+              "displayName": "High-severity alerts"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

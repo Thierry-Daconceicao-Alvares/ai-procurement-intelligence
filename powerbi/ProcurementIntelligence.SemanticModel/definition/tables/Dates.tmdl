@@ -1,0 +1,72 @@
+/// Calendar of the analysis window (1 January 2019 to 30 September 2026).
+table Dates
+	dataCategory: Time
+	lineageTag: 3f31f036-9ba5-584f-b9b0-c353ef24558f
+
+	column date
+		dataType: dateTime
+		isKey
+		formatString: yyyy-mm-dd
+		lineageTag: 88a6a0df-b170-5fc1-8865-9bf04ba334ee
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: 30dee242-f319-5a03-a676-1a93f74a6d83
+		summarizeBy: none
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column quarter
+		dataType: int64
+		formatString: 0
+		lineageTag: 621b5da7-50a8-5ec7-bfa8-dfa873d59c90
+		summarizeBy: none
+		sourceColumn: quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column month
+		dataType: int64
+		formatString: 0
+		lineageTag: 0b2d3ca7-0dfb-52fe-84e5-6f724d35a08d
+		summarizeBy: none
+		sourceColumn: month
+
+		annotation SummarizationSetBy = Automatic
+
+	column year_month
+		dataType: string
+		isHidden
+		lineageTag: e432c07d-e119-5120-ae22-bc5f7d8481cd
+		summarizeBy: none
+		sourceColumn: year_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_label
+		dataType: string
+		lineageTag: fe8ee38f-aea5-5b25-8bf2-c0d0989b37b0
+		summarizeBy: none
+		sourceColumn: month_label
+		sortByColumn: year_month
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dates = m
+		mode: import
+		source =
+				let
+				    Root = Text.TrimEnd(DataFolder, "\") & "\",
+				    Source = Parquet.Document(File.Contents(Root & "dates.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

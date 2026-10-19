@@ -1,0 +1,73 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.2.0/schema.json",
+  "name": "categories_quadrant",
+  "position": {
+    "x": 24,
+    "y": 68,
+    "z": 2000,
+    "height": 56,
+    "width": 296,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "slicer",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "CategoryMarkets"
+                    }
+                  },
+                  "Property": "kraljic_quadrant"
+                }
+              },
+              "queryRef": "CategoryMarkets.kraljic_quadrant",
+              "nativeQueryRef": "kraljic_quadrant",
+              "displayName": "Kraljic quadrant",
+              "active": true
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "CategoryMarkets"
+                  }
+                },
+                "Property": "kraljic_quadrant"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
+        "isDefaultSort": false
+      }
+    },
+    "objects": {
+      "data": [
+        {
+          "properties": {
+            "mode": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Dropdown'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

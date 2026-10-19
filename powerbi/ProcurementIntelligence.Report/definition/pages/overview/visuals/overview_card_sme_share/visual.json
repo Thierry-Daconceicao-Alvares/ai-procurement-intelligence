@@ -1,0 +1,39 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.2.0/schema.json",
+  "name": "overview_card_sme_share",
+  "position": {
+    "x": 1064,
+    "y": 136,
+    "z": 10000,
+    "height": 88,
+    "width": 192,
+    "tabOrder": 10000
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Measures"
+                    }
+                  },
+                  "Property": "SME Share of Value"
+                }
+              },
+              "queryRef": "Measures.SME Share of Value",
+              "nativeQueryRef": "SME Share of Value",
+              "displayName": "SME share of value"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

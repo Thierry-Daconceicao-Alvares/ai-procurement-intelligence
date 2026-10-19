@@ -1,0 +1,140 @@
+/// One CPV group with at least 30 competitive procedures reporting their offers: national concentration, competition and Kraljic quadrant.
+table CategoryMarkets
+	lineageTag: 29ed41a3-d0a1-5fdf-8878-5743d853410a
+
+	column cpv_group
+		dataType: string
+		lineageTag: 079e3583-81ad-570e-8280-489df9fa23d1
+		summarizeBy: none
+		sourceColumn: cpv_group
+
+		annotation SummarizationSetBy = Automatic
+
+	column cpv_group_label
+		dataType: string
+		lineageTag: 815012c8-faed-59fb-8514-0f0bdd603b03
+		summarizeBy: none
+		sourceColumn: cpv_group_label
+
+		annotation SummarizationSetBy = Automatic
+
+	column cpv_division
+		dataType: string
+		lineageTag: 164a6ce5-7f98-56e3-83a9-9e2a1aedc1c3
+		summarizeBy: none
+		sourceColumn: cpv_division
+
+		annotation SummarizationSetBy = Automatic
+
+	column contracts
+		dataType: int64
+		formatString: #,0
+		lineageTag: c2398438-e7c2-5a40-aa95-93a5818b92c8
+		summarizeBy: sum
+		sourceColumn: contracts
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_value
+		dataType: double
+		formatString: €#,0
+		lineageTag: 56d240fc-dacc-5b66-8210-2a838dbaa135
+		summarizeBy: sum
+		sourceColumn: total_value
+
+		annotation SummarizationSetBy = Automatic
+
+	column suppliers
+		dataType: int64
+		formatString: #,0
+		lineageTag: 0cd0b2eb-5f21-5c9d-9a71-57ab2d2b6ead
+		summarizeBy: sum
+		sourceColumn: suppliers
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Herfindahl-Hirschman index of the group (0 to 1).
+	column hhi
+		dataType: double
+		formatString: 0.000
+		lineageTag: 6cab6775-4f42-5501-b512-25f8a1d5c311
+		summarizeBy: none
+		sourceColumn: hhi
+
+		annotation SummarizationSetBy = Automatic
+
+	column top_supplier_share
+		dataType: double
+		formatString: 0.0%
+		lineageTag: cf1196eb-5027-52fc-a34b-d6d3cdaca04a
+		summarizeBy: none
+		sourceColumn: top_supplier_share
+
+		annotation SummarizationSetBy = Automatic
+
+	column avg_offers
+		dataType: double
+		formatString: 0.0
+		lineageTag: 3760518f-9bff-556c-8072-d8e9cb8b54fe
+		summarizeBy: none
+		sourceColumn: avg_offers
+
+		annotation SummarizationSetBy = Automatic
+
+	column single_bid_share
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 539fdf61-2470-5807-b41f-fae0095620b9
+		summarizeBy: none
+		sourceColumn: single_bid_share
+
+		annotation SummarizationSetBy = Automatic
+
+	column procedures_with_offers
+		dataType: int64
+		formatString: #,0
+		lineageTag: 611b2045-aa5b-517f-9910-216dd3dc2222
+		summarizeBy: sum
+		sourceColumn: procedures_with_offers
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Mean percentile of HHI, single-offer share and scarcity of offers.
+	column supply_risk
+		dataType: double
+		formatString: 0.00
+		lineageTag: 069b4c28-50d6-53c3-9b82-5b985f52a2a7
+		summarizeBy: none
+		sourceColumn: supply_risk
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Value of the group as a percentile.
+	column value_percentile
+		dataType: double
+		formatString: 0.00
+		lineageTag: 762d01f1-f332-55a0-a669-80b74ab552bc
+		summarizeBy: none
+		sourceColumn: value_percentile
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Strategic, Bottleneck, Leverage or Non-critical.
+	column kraljic_quadrant
+		dataType: string
+		lineageTag: 01c257d1-445c-506e-ab95-0116e7b700c2
+		summarizeBy: none
+		sourceColumn: kraljic_quadrant
+
+		annotation SummarizationSetBy = Automatic
+
+	partition CategoryMarkets = m
+		mode: import
+		source =
+				let
+				    Root = Text.TrimEnd(DataFolder, "\") & "\",
+				    Source = Parquet.Document(File.Contents(Root & "category_markets.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

@@ -1,0 +1,5 @@
+/// Folder of the Parquet marts: data/marts in a clone of the repository.
+expression DataFolder = "C:\ai-procurement-intelligence\data\marts" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 1854a5cc-9347-584a-802a-086583828935
+
+	annotation PBI_ResultType = Text

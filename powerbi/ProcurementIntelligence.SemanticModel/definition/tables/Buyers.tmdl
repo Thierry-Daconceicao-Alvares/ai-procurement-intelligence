@@ -1,0 +1,71 @@
+/// One public buyer (SIRET).
+table Buyers
+	lineageTag: cb90f3c2-4c12-56cb-b75a-8c0f8b30a871
+
+	column buyer_siret
+		dataType: string
+		lineageTag: 617bc21a-6fff-57df-a1e5-43fc16f49fd7
+		summarizeBy: none
+		sourceColumn: buyer_siret
+
+		annotation SummarizationSetBy = Automatic
+
+	column buyer_name
+		dataType: string
+		lineageTag: 866e835e-d699-5531-8f97-7f03c549f0a1
+		summarizeBy: none
+		sourceColumn: buyer_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column buyer_category
+		dataType: string
+		lineageTag: 5d814e85-ffd6-59cf-a102-5b07ab1a6e77
+		summarizeBy: none
+		sourceColumn: buyer_category
+
+		annotation SummarizationSetBy = Automatic
+
+	column buyer_department_code
+		dataType: string
+		lineageTag: 7d72288d-15a5-56a7-8072-39486f59a47f
+		summarizeBy: none
+		sourceColumn: buyer_department_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column buyer_department
+		dataType: string
+		lineageTag: b993ef83-b7d5-54e7-b052-8d4158ac8b1e
+		summarizeBy: none
+		sourceColumn: buyer_department
+
+		annotation SummarizationSetBy = Automatic
+
+	column buyer_region_code
+		dataType: string
+		lineageTag: 29149733-a9e6-5a73-9cf5-b967e6e59230
+		summarizeBy: none
+		sourceColumn: buyer_region_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column buyer_region
+		dataType: string
+		lineageTag: c160bca9-fbf6-5127-be59-63f01c16cbee
+		summarizeBy: none
+		sourceColumn: buyer_region
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Buyers = m
+		mode: import
+		source =
+				let
+				    Root = Text.TrimEnd(DataFolder, "\") & "\",
+				    Source = Parquet.Document(File.Contents(Root & "buyers.parquet")),
+				    Kept = Table.SelectRows(Source, each [buyer_siret] <> null)
+				in
+				    Kept
+
+	annotation PBI_ResultType = Table

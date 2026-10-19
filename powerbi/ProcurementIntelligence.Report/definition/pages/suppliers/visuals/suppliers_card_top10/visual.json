@@ -1,0 +1,39 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.2.0/schema.json",
+  "name": "suppliers_card_top10",
+  "position": {
+    "x": 336,
+    "y": 136,
+    "z": 6000,
+    "height": 88,
+    "width": 296,
+    "tabOrder": 6000
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Measures"
+                    }
+                  },
+                  "Property": "Top 10 Supplier Share"
+                }
+              },
+              "queryRef": "Measures.Top 10 Supplier Share",
+              "nativeQueryRef": "Top 10 Supplier Share",
+              "displayName": "Share of the 10 largest suppliers"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,139 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.2.0/schema.json",
+  "name": "suppliers_largest",
+  "position": {
+    "x": 24,
+    "y": 240,
+    "z": 9000,
+    "height": 464,
+    "width": 760,
+    "tabOrder": 9000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Suppliers"
+                    }
+                  },
+                  "Property": "supplier_name"
+                }
+              },
+              "queryRef": "Suppliers.supplier_name",
+              "nativeQueryRef": "supplier_name",
+              "displayName": "Supplier"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Measures"
+                    }
+                  },
+                  "Property": "Supplier Value"
+                }
+              },
+              "queryRef": "Measures.Supplier Value",
+              "nativeQueryRef": "Supplier Value",
+              "displayName": "Value"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Measures"
+                    }
+                  },
+                  "Property": "Supplier Contracts"
+                }
+              },
+              "queryRef": "Measures.Supplier Contracts",
+              "nativeQueryRef": "Supplier Contracts",
+              "displayName": "Contracts"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Suppliers"
+                    }
+                  },
+                  "Property": "holder_size"
+                }
+              },
+              "queryRef": "Suppliers.holder_size",
+              "nativeQueryRef": "holder_size",
+              "displayName": "Size"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Suppliers"
+                    }
+                  },
+                  "Property": "segment"
+                }
+              },
+              "queryRef": "Suppliers.segment",
+              "nativeQueryRef": "segment",
+              "displayName": "Segment"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Measures"
+                  }
+                },
+                "Property": "Supplier Value"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": false
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Largest suppliers'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

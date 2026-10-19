@@ -1,0 +1,67 @@
+# Validates the Power BI project (powerbi/) without Power BI Desktop:
+# - the report and project files against Microsoft's published JSON schemas
+#   (github.com/microsoft/json-schemas), plus the references between visuals,
+#   measures, columns and relationships (scripts/powerbi/validate.py);
+# - the semantic model, loaded from its TMDL files by the Tabular Object Model
+#   (scripts/powerbi/tmdl-check).
+name: Power BI project
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "powerbi/**"
+      - "scripts/powerbi/**"
+      - ".github/workflows/powerbi.yml"
+  pull_request:
+    paths:
+      - "powerbi/**"
+      - "scripts/powerbi/**"
+      - ".github/workflows/powerbi.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  report:
+    name: Report schemas and references
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          sparse-checkout: |
+            powerbi
+            scripts/powerbi
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+      - name: Get Microsoft's JSON schemas for Power BI items
+        run: |
+          git clone --depth 1 --filter=blob:none --sparse \
+            https://github.com/microsoft/json-schemas "$RUNNER_TEMP/json-schemas"
+          git -C "$RUNNER_TEMP/json-schemas" sparse-checkout set \
+            fabric/item/report fabric/item/semanticModel fabric/pbip
+      - name: Install
+        run: pip install jsonschema==4.26.0
+      - name: Validate
+        run: python scripts/powerbi/validate.py --schemas "$RUNNER_TEMP/json-schemas"
+
+  semantic-model:
+    name: Semantic model (Tabular Object Model)
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          sparse-checkout: |
+            powerbi
+            scripts/powerbi
+      - uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: "8.0.x"
+      - name: Load the TMDL definition
+        run: >-
+          dotnet run --project scripts/powerbi/tmdl-check --
+          powerbi/ProcurementIntelligence.SemanticModel/definition

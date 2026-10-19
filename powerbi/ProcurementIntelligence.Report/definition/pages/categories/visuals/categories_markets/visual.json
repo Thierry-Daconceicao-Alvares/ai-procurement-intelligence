@@ -1,0 +1,169 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.2.0/schema.json",
+  "name": "categories_markets",
+  "position": {
+    "x": 640,
+    "y": 136,
+    "z": 5000,
+    "height": 568,
+    "width": 616,
+    "tabOrder": 5000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "CategoryMarkets"
+                    }
+                  },
+                  "Property": "cpv_group_label"
+                }
+              },
+              "queryRef": "CategoryMarkets.cpv_group_label",
+              "nativeQueryRef": "cpv_group_label",
+              "displayName": "CPV group"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "CategoryMarkets"
+                    }
+                  },
+                  "Property": "kraljic_quadrant"
+                }
+              },
+              "queryRef": "CategoryMarkets.kraljic_quadrant",
+              "nativeQueryRef": "kraljic_quadrant",
+              "displayName": "Quadrant"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Measures"
+                    }
+                  },
+                  "Property": "Market Value"
+                }
+              },
+              "queryRef": "Measures.Market Value",
+              "nativeQueryRef": "Market Value",
+              "displayName": "Value"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "CategoryMarkets"
+                    }
+                  },
+                  "Property": "suppliers"
+                }
+              },
+              "queryRef": "CategoryMarkets.suppliers",
+              "nativeQueryRef": "suppliers",
+              "displayName": "Suppliers"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "CategoryMarkets"
+                    }
+                  },
+                  "Property": "avg_offers"
+                }
+              },
+              "queryRef": "CategoryMarkets.avg_offers",
+              "nativeQueryRef": "avg_offers",
+              "displayName": "Average offers"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "CategoryMarkets"
+                    }
+                  },
+                  "Property": "single_bid_share"
+                }
+              },
+              "queryRef": "CategoryMarkets.single_bid_share",
+              "nativeQueryRef": "single_bid_share",
+              "displayName": "Single offer"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "CategoryMarkets"
+                    }
+                  },
+                  "Property": "supply_risk"
+                }
+              },
+              "queryRef": "CategoryMarkets.supply_risk",
+              "nativeQueryRef": "supply_risk",
+              "displayName": "Supply risk"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Measures"
+                  }
+                },
+                "Property": "Market Value"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": false
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Markets by value'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

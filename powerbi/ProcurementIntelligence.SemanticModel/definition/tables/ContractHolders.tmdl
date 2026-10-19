@@ -1,0 +1,85 @@
+/// One holder of a contract. The awarded amount is shared equally between the holders of a contract, so that supplier totals add up to the contract total.
+table ContractHolders
+	lineageTag: 3ba14f20-1b22-5180-b064-cf53178a7e12
+
+	column uid
+		dataType: string
+		lineageTag: 3210c8a2-f0d3-55bc-8d59-ea1a3a6ec729
+		summarizeBy: none
+		sourceColumn: uid
+
+		annotation SummarizationSetBy = Automatic
+
+	column holder_key
+		dataType: string
+		lineageTag: 6eff5075-c234-515b-b00e-ccffed09889b
+		summarizeBy: none
+		sourceColumn: holder_key
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Share of the awarded amount of the contract.
+	column allocated_amount
+		dataType: double
+		formatString: €#,0
+		lineageTag: cbeee2ec-9dfc-51d3-932b-b4c7bd0a3125
+		summarizeBy: sum
+		sourceColumn: allocated_amount
+
+		annotation SummarizationSetBy = Automatic
+
+	/// SME, Mid-sized company or Large company.
+	column holder_size
+		dataType: string
+		lineageTag: 5fed131a-43e3-5ba9-af58-a344cdad561b
+		summarizeBy: none
+		sourceColumn: holder_size
+
+		annotation SummarizationSetBy = Automatic
+
+	column holder_naf_code
+		dataType: string
+		lineageTag: f5ac2d37-b761-5954-a63b-5c5240e44724
+		summarizeBy: none
+		sourceColumn: holder_naf_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column holder_department_code
+		dataType: string
+		lineageTag: 7b387ea8-397c-58aa-a521-c7992e08a0bb
+		summarizeBy: none
+		sourceColumn: holder_department_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column holder_region_code
+		dataType: string
+		lineageTag: 73189cf9-3c1e-5004-9355-b5bd22466e5e
+		summarizeBy: none
+		sourceColumn: holder_region_code
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Distance between the holder and the buyer.
+	column holder_distance_km
+		dataType: int64
+		formatString: 0
+		lineageTag: d4a404fb-ec5c-5977-8a1e-93d685effa7d
+		summarizeBy: none
+		sourceColumn: holder_distance_km
+
+		annotation SummarizationSetBy = Automatic
+
+	partition ContractHolders = m
+		mode: import
+		source =
+				let
+				    Root = Text.TrimEnd(DataFolder, "\") & "\",
+				    Files = Folder.Files(Root & "contract_holders"),
+				    Parts = Table.SelectRows(Files, each Text.Lower([Extension]) = ".parquet"),
+				    Source = Table.Combine(List.Transform(Parts[Content], each Parquet.Document(_)))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

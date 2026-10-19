@@ -1,0 +1,169 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.2.0/schema.json",
+  "name": "alerts_queue",
+  "position": {
+    "x": 24,
+    "y": 240,
+    "z": 8000,
+    "height": 464,
+    "width": 1232,
+    "tabOrder": 8000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Alerts"
+                    }
+                  },
+                  "Property": "priority"
+                }
+              },
+              "queryRef": "Alerts.priority",
+              "nativeQueryRef": "priority",
+              "displayName": "Priority"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Alerts"
+                    }
+                  },
+                  "Property": "severity"
+                }
+              },
+              "queryRef": "Alerts.severity",
+              "nativeQueryRef": "severity",
+              "displayName": "Severity"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Alerts"
+                    }
+                  },
+                  "Property": "label"
+                }
+              },
+              "queryRef": "Alerts.label",
+              "nativeQueryRef": "label",
+              "displayName": "Alert"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Alerts"
+                    }
+                  },
+                  "Property": "title"
+                }
+              },
+              "queryRef": "Alerts.title",
+              "nativeQueryRef": "title",
+              "displayName": "What was found"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Alerts"
+                    }
+                  },
+                  "Property": "buyer_name"
+                }
+              },
+              "queryRef": "Alerts.buyer_name",
+              "nativeQueryRef": "buyer_name",
+              "displayName": "Buyer"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Alerts"
+                    }
+                  },
+                  "Property": "amount_at_stake"
+                }
+              },
+              "queryRef": "Alerts.amount_at_stake",
+              "nativeQueryRef": "amount_at_stake",
+              "displayName": "At stake"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Alerts"
+                    }
+                  },
+                  "Property": "recommended_action"
+                }
+              },
+              "queryRef": "Alerts.recommended_action",
+              "nativeQueryRef": "recommended_action",
+              "displayName": "Recommended action"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Alerts"
+                  }
+                },
+                "Property": "priority"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": false
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Review queue'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

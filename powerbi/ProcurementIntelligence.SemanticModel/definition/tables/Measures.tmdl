@@ -1,0 +1,211 @@
+/// Measures of the report, grouped in display folders.
+table Measures
+	lineageTag: 40fba656-bee7-561c-b7d1-f4720f2827f7
+
+	/// Sum of the valid awarded amounts, excluding VAT (framework agreements count for their maximum).
+	measure 'Awarded Value' = SUM ( Contracts[awarded_amount] )
+		formatString: €#,0
+		displayFolder: Spend
+		lineageTag: 8bcb5f2b-7d24-5c07-bd39-495ce86d20a8
+
+	/// Awarded value of the contracts that are not framework agreements.
+	measure 'Contract Value' = CALCULATE ( [Awarded Value], KEEPFILTERS ( Contracts[is_framework] = FALSE () ) )
+		formatString: €#,0
+		displayFolder: Spend
+		lineageTag: 927a4355-4d2f-5a61-9968-6b8111204343
+
+	/// Maximum amount of the framework agreements.
+	measure 'Framework Value' = CALCULATE ( [Awarded Value], KEEPFILTERS ( Contracts[is_framework] = TRUE () ) )
+		formatString: €#,0
+		displayFolder: Spend
+		lineageTag: a6bac754-7d07-57d2-8053-b9abcd41d7da
+
+	/// Contracts, after merging the records of one award.
+	measure Contracts = COUNTROWS ( Contracts )
+		formatString: #,0
+		displayFolder: Spend
+		lineageTag: 7111981d-f074-5b7f-8060-20b9b54e2356
+
+	/// Public buyers with at least one contract.
+	measure Buyers = DISTINCTCOUNT ( Contracts[buyer_siret] )
+		formatString: #,0
+		displayFolder: Spend
+		lineageTag: 15b243d9-069e-5108-be19-2df086f199b8
+
+	/// Change of the awarded value over the same period one year earlier.
+	measure 'Awarded Value YoY %' =
+			VAR CurrentValue = [Awarded Value]
+			VAR PreviousValue =
+			    CALCULATE ( [Awarded Value], DATEADD ( Dates[date], -1, YEAR ) )
+			RETURN
+			    IF (
+			        NOT ISBLANK ( PreviousValue ),
+			        DIVIDE ( CurrentValue - PreviousValue, PreviousValue )
+			    )
+		formatString: 0.0%
+		displayFolder: Spend
+		lineageTag: 7eeef419-619f-5b33-a7d0-264509254ad6
+
+	/// Contracts whose reported amount is implausible and excluded from totals.
+	measure 'Implausible Amounts' = CALCULATE ( [Contracts], KEEPFILTERS ( Contracts[amount_status] = "implausible" ) )
+		formatString: #,0
+		displayFolder: Data quality
+		lineageTag: dba78134-04fe-5df4-896b-5ddd3f574bb8
+
+	/// Share of competitive procedures that received a single offer, among those that report their number of offers.
+	measure 'Single-offer Rate' =
+			VAR Reported =
+			    CALCULATE ( COUNTROWS ( Contracts ), KEEPFILTERS ( Contracts[procedure_group] = "Competitive" ), KEEPFILTERS ( NOT ISBLANK ( Contracts[offers_received] ) ) )
+			VAR SingleOffer =
+			    CALCULATE ( COUNTROWS ( Contracts ), KEEPFILTERS ( Contracts[procedure_group] = "Competitive" ), KEEPFILTERS ( Contracts[offers_received] = 1 ) )
+			RETURN
+			    DIVIDE ( SingleOffer, Reported )
+		formatString: 0.0%
+		displayFolder: Competition
+		lineageTag: 9eaf0976-00af-5c77-a3e4-9c215661f835
+
+	/// Share of competitive procedures that report their number of offers.
+	measure 'Offer Reporting Share' =
+			VAR Competitive =
+			    CALCULATE ( COUNTROWS ( Contracts ), KEEPFILTERS ( Contracts[procedure_group] = "Competitive" ) )
+			VAR Reported =
+			    CALCULATE ( COUNTROWS ( Contracts ), KEEPFILTERS ( Contracts[procedure_group] = "Competitive" ), KEEPFILTERS ( NOT ISBLANK ( Contracts[offers_received] ) ) )
+			RETURN
+			    DIVIDE ( Reported, Competitive )
+		formatString: 0.0%
+		displayFolder: Competition
+		lineageTag: da7c1e18-84ae-5f29-b0e3-8ec404b247df
+
+	/// Single-offer rate, shown only where at least half of the competitive procedures report their number of offers.
+	measure 'Single-offer Rate (reported years)' = IF ( [Offer Reporting Share] >= 0.5, [Single-offer Rate] )
+		formatString: 0.0%
+		displayFolder: Competition
+		lineageTag: 6a4e6ba0-090a-53d4-807c-75380c819403
+
+	/// Share of contracts awarded without publication or competition.
+	measure 'Non-competitive Share' =
+			DIVIDE (
+			    CALCULATE (
+			        COUNTROWS ( Contracts ),
+			        KEEPFILTERS ( Contracts[procedure_group] = "Non-competitive" )
+			    ),
+			    COUNTROWS ( Contracts )
+			)
+		formatString: 0.0%
+		displayFolder: Competition
+		lineageTag: 1191b6a7-2248-56fc-9bfe-2d3200de759c
+
+	/// Awarded value allocated to the suppliers (shared equally between co-holders).
+	measure 'Supplier Value' = SUM ( ContractHolders[allocated_amount] )
+		formatString: €#,0
+		displayFolder: Suppliers
+		lineageTag: c955f2c8-506d-52d6-a1ba-386281f83605
+
+	/// Suppliers holding at least one contract.
+	measure Suppliers = DISTINCTCOUNT ( ContractHolders[holder_key] )
+		formatString: #,0
+		displayFolder: Suppliers
+		lineageTag: 2c1e8897-1285-5fa0-b057-888b49baffb0
+
+	/// Contracts held by the suppliers in the filter context.
+	measure 'Supplier Contracts' = DISTINCTCOUNT ( ContractHolders[uid] )
+		formatString: #,0
+		displayFolder: Suppliers
+		lineageTag: 7d6dd0f7-da34-5766-b195-8678323752f7
+
+	/// Share of the supplier value held by small and medium-sized companies.
+	measure 'SME Share of Value' =
+			DIVIDE (
+			    CALCULATE (
+			        [Supplier Value],
+			        KEEPFILTERS ( ContractHolders[holder_size] = "SME" )
+			    ),
+			    [Supplier Value]
+			)
+		formatString: 0.0%
+		displayFolder: Suppliers
+		lineageTag: 7968b141-8eff-58f8-80f2-55a84690eac1
+
+	/// Share of the supplier value held by the 10 largest suppliers.
+	measure 'Top 10 Supplier Share' =
+			VAR Total = [Supplier Value]
+			VAR TopTen =
+			    SUMX (
+			        TOPN ( 10, VALUES ( ContractHolders[holder_key] ), [Supplier Value], DESC ),
+			        [Supplier Value]
+			    )
+			RETURN
+			    DIVIDE ( TopTen, Total )
+		formatString: 0.0%
+		displayFolder: Suppliers
+		lineageTag: f6c891f2-4f80-5fc4-b3e8-bfd1c854b2d6
+
+	/// Herfindahl-Hirschman index of the suppliers, from near 0 (many small suppliers) to 10,000 (a single supplier).
+	measure 'Supplier HHI' =
+			VAR Total = [Supplier Value]
+			RETURN
+			    IF (
+			        Total > 0,
+			        SUMX (
+			            VALUES ( ContractHolders[holder_key] ),
+			            DIVIDE ( [Supplier Value], Total ) ^ 2
+			        ) * 10000
+			    )
+		formatString: #,0
+		displayFolder: Suppliers
+		lineageTag: 2f4fbe62-879f-5151-bd90-8ecc3a03f271
+
+	/// Suppliers that have a segment (at least three contracts).
+	measure 'Profiled Suppliers' = CALCULATE ( [Suppliers], KEEPFILTERS ( NOT ISBLANK ( Suppliers[segment] ) ) )
+		formatString: #,0
+		displayFolder: Suppliers
+		lineageTag: 5699ee68-3690-5956-b429-6ed7a9e94a04
+
+	/// Alerts to review.
+	measure Alerts = COUNTROWS ( Alerts )
+		formatString: #,0
+		displayFolder: Alerts
+		lineageTag: 6b627bb6-fa47-5925-8c42-877631b8d4b8
+
+	/// Alerts of high severity.
+	measure 'High-severity Alerts' = CALCULATE ( [Alerts], KEEPFILTERS ( Alerts[severity] = "high" ) )
+		formatString: #,0
+		displayFolder: Alerts
+		lineageTag: 09038e76-03f3-5f71-b891-73ae6c0aff9e
+
+	/// Sum of the amounts the alerts are about (awarded amount, increase, reporting error...): not a loss.
+	measure 'Amount at Stake' = SUM ( Alerts[amount_at_stake] )
+		formatString: €#,0
+		displayFolder: Alerts
+		lineageTag: d45879f6-d861-5023-9b30-58e5fdbfaf3f
+
+	/// Awarded value of the CPV groups (national markets).
+	measure 'Market Value' = SUM ( CategoryMarkets[total_value] )
+		formatString: €#,0
+		displayFolder: Markets
+		lineageTag: d85abe83-c3ee-57f9-ba32-11e656cf4128
+
+	/// Value of the CPV group as a percentile among groups.
+	measure 'Market Value Percentile' = AVERAGE ( CategoryMarkets[value_percentile] )
+		formatString: 0.00
+		displayFolder: Markets
+		lineageTag: 48f74717-13e7-529d-8deb-0ea3f7cf2580
+
+	/// Supply risk of the CPV group (0 to 1).
+	measure 'Market Supply Risk' = AVERAGE ( CategoryMarkets[supply_risk] )
+		formatString: 0.00
+		displayFolder: Markets
+		lineageTag: 12cfc840-fc60-5831-ac88-f41360f43c27
+
+	column Value
+		isHidden
+		lineageTag: d9ce8e3e-582f-5acc-bfef-7ece3359797b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Value]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Measures = calculated
+		mode: import
+		source = ROW ( "Value", BLANK () )

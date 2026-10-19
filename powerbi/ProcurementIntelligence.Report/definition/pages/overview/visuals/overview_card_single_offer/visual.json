@@ -1,0 +1,39 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.2.0/schema.json",
+  "name": "overview_card_single_offer",
+  "position": {
+    "x": 856,
+    "y": 136,
+    "z": 9000,
+    "height": 88,
+    "width": 192,
+    "tabOrder": 9000
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Measures"
+                    }
+                  },
+                  "Property": "Single-offer Rate"
+                }
+              },
+              "queryRef": "Measures.Single-offer Rate",
+              "nativeQueryRef": "Single-offer Rate",
+              "displayName": "Single-offer rate"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

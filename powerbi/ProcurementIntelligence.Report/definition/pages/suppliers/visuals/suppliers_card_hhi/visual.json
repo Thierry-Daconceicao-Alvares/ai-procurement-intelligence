@@ -1,0 +1,39 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.2.0/schema.json",
+  "name": "suppliers_card_hhi",
+  "position": {
+    "x": 648,
+    "y": 136,
+    "z": 7000,
+    "height": 88,
+    "width": 296,
+    "tabOrder": 7000
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Measures"
+                    }
+                  },
+                  "Property": "Supplier HHI"
+                }
+              },
+              "queryRef": "Measures.Supplier HHI",
+              "nativeQueryRef": "Supplier HHI",
+              "displayName": "Supplier concentration (HHI, 0 to 10,000)"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

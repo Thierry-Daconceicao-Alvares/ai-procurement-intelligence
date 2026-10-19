@@ -1,0 +1,353 @@
+/// One contract notified from January 2019 to September 2026, after merging the records of one award. awarded_amount is empty when the reported amount is missing or implausible.
+table Contracts
+	lineageTag: 7404519a-bb7c-5244-b956-437ba288ca96
+
+	/// Identifier of the contract in the consolidated data.
+	column uid
+		dataType: string
+		lineageTag: 62377eec-0cf9-551a-89f4-b17c4b1525d5
+		summarizeBy: none
+		sourceColumn: uid
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Reference of the contract given by the buyer.
+	column contract_ref
+		dataType: string
+		lineageTag: da0b0c04-4432-53a7-942f-5bfe56201df8
+		summarizeBy: none
+		sourceColumn: contract_ref
+
+		annotation SummarizationSetBy = Automatic
+
+	/// SIRET of the buyer.
+	column buyer_siret
+		dataType: string
+		lineageTag: c46d6681-1100-5106-a487-e964a200c218
+		summarizeBy: none
+		sourceColumn: buyer_siret
+
+		annotation SummarizationSetBy = Automatic
+
+	/// First holder of the contract (FR:<SIREN> or ID:<id>).
+	column lead_holder_key
+		dataType: string
+		lineageTag: 6aaa42bc-5471-5596-ad3f-75653809a28b
+		summarizeBy: none
+		sourceColumn: lead_holder_key
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Date the contract was notified to its holder.
+	column notification_date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 8599fb1b-82ea-559f-858e-6231032d80fe
+		summarizeBy: none
+		sourceColumn: notification_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column notification_year
+		dataType: int64
+		formatString: 0
+		lineageTag: c8d528cc-6b9b-5bd1-9486-2ec54a6f4761
+		summarizeBy: none
+		sourceColumn: notification_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column notification_month
+		dataType: dateTime
+		formatString: mmm yyyy
+		lineageTag: 8b5e3d27-b7b7-52da-bbae-1af54575646c
+		summarizeBy: none
+		sourceColumn: notification_month
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	/// Works, Services or Supplies.
+	column contract_type
+		dataType: string
+		lineageTag: 303c9461-f642-5433-a8f7-6e247839ff46
+		summarizeBy: none
+		sourceColumn: contract_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column contract_nature
+		dataType: string
+		lineageTag: 7e33bfbd-acbc-596b-a7ae-3ab51d169edb
+		summarizeBy: none
+		sourceColumn: contract_nature
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Framework agreement: the amount is a maximum.
+	column is_framework
+		dataType: boolean
+		formatString: "TRUE";"TRUE";"FALSE"
+		lineageTag: 757f9353-3170-5fc3-b2dc-13f8ace16074
+		summarizeBy: none
+		sourceColumn: is_framework
+
+		annotation SummarizationSetBy = Automatic
+
+	column procedure_type
+		dataType: string
+		lineageTag: c1bd784d-bf90-52dd-a40f-a098ed2bda56
+		summarizeBy: none
+		sourceColumn: procedure_type
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Competitive, Non-competitive or Unknown.
+	column procedure_group
+		dataType: string
+		lineageTag: e628b66e-e066-50f6-8b98-ea2a8382a238
+		summarizeBy: none
+		sourceColumn: procedure_group
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Number of offers received, when reported.
+	column offers_received
+		dataType: int64
+		formatString: 0
+		lineageTag: d949f011-6fdb-59da-8c51-2960a9c86af6
+		summarizeBy: none
+		sourceColumn: offers_received
+
+		annotation SummarizationSetBy = Automatic
+
+	/// CPV 2008 code chosen by the buyer.
+	column cpv_code
+		dataType: string
+		lineageTag: faeb1ac7-8060-5dbc-9ccf-ced30cc0e5ca
+		summarizeBy: none
+		sourceColumn: cpv_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column cpv_division
+		dataType: string
+		lineageTag: 3ea57b5e-048c-5dd0-88d4-91db705f7515
+		summarizeBy: none
+		sourceColumn: cpv_division
+
+		annotation SummarizationSetBy = Automatic
+
+	column cpv_group
+		dataType: string
+		lineageTag: 0e814061-27dd-5b8b-9319-a681e4a77ca3
+		summarizeBy: none
+		sourceColumn: cpv_group
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Amount as published, before quality checks.
+	column reported_amount
+		dataType: double
+		formatString: €#,0
+		lineageTag: bb0e2cd1-ce4b-526d-aaeb-2fd1364707c5
+		summarizeBy: sum
+		sourceColumn: reported_amount
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Reported amount when valid; empty otherwise.
+	column awarded_amount
+		dataType: double
+		formatString: €#,0
+		lineageTag: 7f85e906-d617-5088-aac5-d465ec36f19e
+		summarizeBy: sum
+		sourceColumn: awarded_amount
+
+		annotation SummarizationSetBy = Automatic
+
+	/// valid, implausible or missing.
+	column amount_status
+		dataType: string
+		lineageTag: 594112c9-e636-5ea5-b604-7ed6e6989351
+		summarizeBy: none
+		sourceColumn: amount_status
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Why an amount is implausible: placeholder, out_of_bounds, default_ceiling or far_from_expected.
+	column amount_issue
+		dataType: string
+		lineageTag: 489bc814-d0c3-5bcf-bf2c-c7e1797ae41f
+		summarizeBy: none
+		sourceColumn: amount_issue
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Amount expected for comparable contracts (model).
+	column expected_amount
+		dataType: double
+		formatString: €#,0
+		lineageTag: 0b2d1236-a171-576b-9c51-765f9a4aee9a
+		summarizeBy: none
+		sourceColumn: expected_amount
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Robust z-score of the amount against the model.
+	column amount_z_model
+		dataType: double
+		formatString: 0.00
+		lineageTag: 960b1ac1-d267-5d5a-bed8-3be3695a884a
+		summarizeBy: none
+		sourceColumn: amount_z_model
+
+		annotation SummarizationSetBy = Automatic
+
+	column duration_months
+		dataType: int64
+		formatString: 0
+		lineageTag: 410f0441-5c51-5c52-b733-cc9a1dcd49ca
+		summarizeBy: none
+		sourceColumn: duration_months
+
+		annotation SummarizationSetBy = Automatic
+
+	column price_form
+		dataType: string
+		lineageTag: 9bfa41c6-d0bc-52e4-ba9f-8635f4b27fc2
+		summarizeBy: none
+		sourceColumn: price_form
+
+		annotation SummarizationSetBy = Automatic
+
+	column price_variation
+		dataType: string
+		lineageTag: 18ded4f0-8699-50ac-bc57-a3c502690a9d
+		summarizeBy: none
+		sourceColumn: price_variation
+
+		annotation SummarizationSetBy = Automatic
+
+	column modification_count
+		dataType: int64
+		formatString: #,0
+		lineageTag: c34347f2-e861-59b2-8353-c667ac5f20b4
+		summarizeBy: sum
+		sourceColumn: modification_count
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Amount after modifications, as published.
+	column reported_current_amount
+		dataType: double
+		formatString: €#,0
+		lineageTag: 4d0505d4-6639-58c2-b929-5d5415f83ccb
+		summarizeBy: none
+		sourceColumn: reported_current_amount
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Change of amount through modifications.
+	column amount_change_ratio
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 1ffa1477-c587-587e-a8a1-14b62bd46786
+		summarizeBy: none
+		sourceColumn: amount_change_ratio
+
+		annotation SummarizationSetBy = Automatic
+
+	column amount_change_status
+		dataType: string
+		lineageTag: 30e7724c-dd7c-5803-a107-2366865830cd
+		summarizeBy: none
+		sourceColumn: amount_change_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column holder_count
+		dataType: int64
+		formatString: 0
+		lineageTag: c8538fa9-0e4a-5efe-9685-0a13bb3bffba
+		summarizeBy: none
+		sourceColumn: holder_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column buyer_category
+		dataType: string
+		lineageTag: 33f8b0b5-456a-5641-8f12-45e06d4f609b
+		summarizeBy: none
+		sourceColumn: buyer_category
+
+		annotation SummarizationSetBy = Automatic
+
+	column buyer_department_code
+		dataType: string
+		lineageTag: ad1ffc95-2f49-5a58-abea-157bb61640ee
+		summarizeBy: none
+		sourceColumn: buyer_department_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column buyer_region_code
+		dataType: string
+		lineageTag: b6d940ad-b43e-5e74-a0e6-e8c9ae2ebf05
+		summarizeBy: none
+		sourceColumn: buyer_region_code
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Records merged into this contract.
+	column records
+		dataType: int64
+		formatString: 0
+		lineageTag: 74e2f20e-201b-53c5-91e0-14e604cca6f9
+		summarizeBy: none
+		sourceColumn: records
+
+		annotation SummarizationSetBy = Automatic
+
+	column record_group_kind
+		dataType: string
+		lineageTag: 35dee6dc-9876-5b5e-8709-710afccb7e9a
+		summarizeBy: none
+		sourceColumn: record_group_kind
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Buyers that published this contract (joint purchase).
+	column record_buyers
+		dataType: int64
+		formatString: 0
+		lineageTag: 3f13299b-ba04-5e29-b68d-a87de7bf956b
+		summarizeBy: none
+		sourceColumn: record_buyers
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Platform or flow that published the record.
+	column source_dataset
+		dataType: string
+		lineageTag: e930f6f3-0cfb-5498-8ac1-3156953be901
+		summarizeBy: none
+		sourceColumn: source_dataset
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Contracts = m
+		mode: import
+		source =
+				let
+				    Root = Text.TrimEnd(DataFolder, "\") & "\",
+				    Files = Folder.Files(Root & "contracts"),
+				    Parts = Table.SelectRows(Files, each Text.Lower([Extension]) = ".parquet"),
+				    Source = Table.Combine(List.Transform(Parts[Content], each Parquet.Document(_)))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
