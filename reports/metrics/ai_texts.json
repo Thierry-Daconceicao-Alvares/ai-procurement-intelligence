@@ -1,0 +1,47 @@
+{
+  "generated_at": "2026-10-19T19:50:20Z",
+  "model": "gemini-3.5-flash-lite",
+  "prompt_version": "1",
+  "alerts_requested": 200,
+  "alerts_explained": 200,
+  "failures": [],
+  "stopped": null,
+  "texts_with_all_figures_verified": 180,
+  "texts": 201,
+  "unverified_examples": [
+    [
+      "554"
+    ],
+    [
+      "28"
+    ],
+    [
+      "11"
+    ],
+    [
+      "194"
+    ],
+    [
+      "2021042"
+    ],
+    [
+      "\u20ac662"
+    ],
+    [
+      "027001"
+    ],
+    [
+      "68"
+    ],
+    [
+      "2023"
+    ],
+    [
+      "\u20ac346"
+    ]
+  ],
+  "latency_median_s": 1.16,
+  "prompt_tokens": 106686,
+  "output_tokens": 35232,
+  "estimated_cost_usd_paid_tier": 0.1201
+}
