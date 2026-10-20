@@ -108,8 +108,10 @@ The full DAX is in
    against supply risk, coloured by quadrant) and the table of markets.
 4. **Alerts**: slicers for category, severity, alert and year; cards for
    alerts, high-severity alerts and amount at stake; the review queue ordered
-   by priority. Buyer-level alerts have no contract, so a year filter hides
-   them.
+   by priority. A page filter leaves out data-quality alerts (reporting
+   errors), as the application does by default: their placeholder amounts
+   would fill the top of the queue. Buyer-level alerts have no contract, so a
+   year filter hides them.
 
 The year, region and buyer category slicers are synchronised across pages. The
 report uses the palette of the application through a custom theme

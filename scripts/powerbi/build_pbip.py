@@ -842,6 +842,7 @@ class Visual:
     title: str | None = None
     objects: dict = field(default_factory=dict)
     sync_group: str | None = None
+    filters: list[dict] = field(default_factory=list)
 
     def to_json(self, z: int) -> dict:
         visual: dict = {"visualType": self.visual_type}
@@ -871,7 +872,7 @@ class Visual:
                 "filterChanges": True,
             }
         visual["drillFilterOtherVisuals"] = True
-        return {
+        container_json: dict = {
             "$schema": VISUAL_SCHEMA,
             "name": self.name,
             "position": {
@@ -884,6 +885,9 @@ class Visual:
             },
             "visual": visual,
         }
+        if self.filters:
+            container_json["filterConfig"] = {"filters": self.filters}
+        return container_json
 
 
 def textbox(
@@ -916,9 +920,9 @@ def page_title(prefix: str, title: str, subtitle: str) -> Visual:
     return textbox(
         f"{prefix}_title",
         24,
-        8,
+        4,
         1232,
-        56,
+        62,
         [(title, "18pt", INK, True), (subtitle, "9pt", INK_SECONDARY, False)],
     )
 
@@ -964,6 +968,63 @@ def card(
             "labels": [{"properties": {"labelPrecision": {"expr": {"Literal": {"Value": "1L"}}}}}]
         },
     )
+
+
+def column_widths(widths: dict[str, int], wrap_headers: bool = True) -> dict:
+    """Fixed column widths of a table, by queryRef (Entity.Property), so that no
+    column is cut or pushed out of view; long headers wrap."""
+    objects: dict = {
+        "columnWidth": [
+            {
+                "properties": {"value": literal(width)},
+                "selector": {"metadata": query_ref},
+            }
+            for query_ref, width in widths.items()
+        ]
+    }
+    if wrap_headers:
+        objects["columnHeaders"] = [{"properties": {"wordWrap": literal(True)}}]
+        objects["values"] = [{"properties": {"wordWrap": literal(False)}}]
+    return objects
+
+
+def exclude_filter(name: str, entity: str, prop: str, values: list[str | None]) -> dict:
+    """A filter that keeps every value of Entity[prop] except the given ones
+    (None for blank)."""
+    literals = [
+        [{"Literal": {"Value": "null" if v is None else "'" + v.replace("'", "''") + "'"}}]
+        for v in values
+    ]
+    return {
+        "name": name,
+        "field": {"Column": {"Expression": {"SourceRef": {"Entity": entity}}, "Property": prop}},
+        "type": "Categorical",
+        "filter": {
+            "Version": 2,
+            "From": [{"Name": "f", "Entity": entity, "Type": 0}],
+            "Where": [
+                {
+                    "Condition": {
+                        "Not": {
+                            "Expression": {
+                                "In": {
+                                    "Expressions": [
+                                        {
+                                            "Column": {
+                                                "Expression": {"SourceRef": {"Source": "f"}},
+                                                "Property": prop,
+                                            }
+                                        }
+                                    ],
+                                    "Values": literals,
+                                }
+                            }
+                        }
+                    }
+                }
+            ],
+        },
+    }
 
 
 CATEGORICAL_AXIS = {"categoryAxis": [{"properties": {"axisType": literal("Categorical")}}]}
@@ -1017,7 +1078,10 @@ def overview_page() -> list[Visual]:
             },
             sort=[(column("Dates", "year"), "Ascending")],
             title="Awarded value by year",
-            objects=CATEGORICAL_AXIS,
+            objects={
+                **CATEGORICAL_AXIS,
+                "valueAxis": [{"properties": {"showAxisTitle": literal(False)}}],
+            },
         ),
         Visual(
             f"{p}_value_by_division",
@@ -1034,6 +1098,7 @@ def overview_page() -> list[Visual]:
             },
             sort=[(measure("Awarded Value"), "Descending")],
             title="Awarded value by CPV division",
+            filters=[exclude_filter("no_blank_division", "CPV", "cpv_division_label", [None])],
         ),
         Visual(
             f"{p}_single_offer_by_year",
@@ -1106,6 +1171,15 @@ def suppliers_page() -> list[Visual]:
             },
             sort=[(measure("Supplier Value"), "Descending")],
             title="Largest suppliers",
+            objects=column_widths(
+                {
+                    "Suppliers.supplier_name": 290,
+                    "_Measures.Supplier Value": 130,
+                    "_Measures.Supplier Contracts": 75,
+                    "Suppliers.holder_size": 95,
+                    "Suppliers.segment": 135,
+                }
+            ),
         ),
         Visual(
             f"{p}_segments",
@@ -1192,6 +1266,17 @@ def categories_page() -> list[Visual]:
             },
             sort=[(measure("Market Value"), "Descending")],
             title="Markets by value",
+            objects=column_widths(
+                {
+                    "CategoryMarkets.cpv_group_label": 200,
+                    "CategoryMarkets.kraljic_quadrant": 80,
+                    "_Measures.Market Value": 105,
+                    "CategoryMarkets.suppliers": 60,
+                    "CategoryMarkets.avg_offers": 55,
+                    "CategoryMarkets.single_bid_share": 50,
+                    "CategoryMarkets.supply_risk": 45,
+                }
+            ),
         ),
     ]
 
@@ -1203,8 +1288,8 @@ def alerts_page() -> list[Visual]:
             p,
             "Alerts to review",
             "Risk indicators computed from the published data, by priority (severity and "
-            "amount at stake); most have a legitimate explanation. Buyer-level alerts "
-            "ignore the year.",
+            "amount at stake); most have a legitimate explanation. Data-quality alerts "
+            "(reporting errors) are left out, as in the application.",
         ),
         slicer(f"{p}_category", "Alerts", "category", "Category", 24, 68),
         slicer(f"{p}_severity", "Alerts", "severity", "Severity", 336, 68),
@@ -1239,10 +1324,28 @@ def alerts_page() -> list[Visual]:
             },
             sort=[(column("Alerts", "priority"), "Descending")],
             title="Review queue",
+            objects=column_widths(
+                {
+                    "Alerts.priority": 55,
+                    "Alerts.severity": 60,
+                    "Alerts.label": 170,
+                    "Alerts.title": 380,
+                    "Alerts.buyer_name": 220,
+                    "Alerts.amount_at_stake": 105,
+                    "Alerts.recommended_action": 210,
+                }
+            ),
         )
     )
     return visuals
 
+
+# Page filters. The review queue leaves out data-quality alerts, as the
+# application does by default: their placeholder amounts (€99,999,999,999)
+# would fill the top of the queue and the amount at stake.
+PAGE_FILTERS = {
+    "alerts": [exclude_filter("no_data_quality", "Alerts", "category", ["Data quality"])],
+}
 
 PAGES = [
     ("overview", "Spend overview", overview_page),
@@ -1352,6 +1455,11 @@ def write_report(out: Path, base_theme: Path) -> None:
                 "displayOption": "FitToPage",
                 "height": 720,
                 "width": 1280,
+                **(
+                    {"filterConfig": {"filters": PAGE_FILTERS[name]}}
+                    if name in PAGE_FILTERS
+                    else {}
+                ),
             },
         )
         for z, visual in enumerate(build()):

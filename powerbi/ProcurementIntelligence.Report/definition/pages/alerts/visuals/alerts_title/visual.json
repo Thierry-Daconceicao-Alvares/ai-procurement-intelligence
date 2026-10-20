@@ -3,9 +3,9 @@
   "name": "alerts_title",
   "position": {
     "x": 24,
-    "y": 8,
+    "y": 4,
     "z": 0,
-    "height": 56,
+    "height": 62,
     "width": 1232,
     "tabOrder": 0
   },
@@ -31,7 +31,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Risk indicators computed from the published data, by priority (severity and amount at stake); most have a legitimate explanation. Buyer-level alerts ignore the year.",
+                    "value": "Risk indicators computed from the published data, by priority (severity and amount at stake); most have a legitimate explanation. Data-quality alerts (reporting errors) are left out, as in the application.",
                     "textStyle": {
                       "fontSize": "9pt",
                       "color": "#52514e"
