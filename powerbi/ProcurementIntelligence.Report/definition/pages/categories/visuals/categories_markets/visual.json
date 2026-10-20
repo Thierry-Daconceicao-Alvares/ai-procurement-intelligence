@@ -88,7 +88,7 @@
               },
               "queryRef": "CategoryMarkets.avg_offers",
               "nativeQueryRef": "avg_offers",
-              "displayName": "Average offers"
+              "displayName": "Avg offers"
             },
             {
               "field": {
@@ -118,7 +118,7 @@
               },
               "queryRef": "CategoryMarkets.supply_risk",
               "nativeQueryRef": "supply_risk",
-              "displayName": "Supply risk"
+              "displayName": "Risk"
             }
           ]
         }
@@ -149,7 +149,7 @@
             "value": {
               "expr": {
                 "Literal": {
-                  "Value": "200D"
+                  "Value": "185D"
                 }
               }
             }
@@ -163,7 +163,7 @@
             "value": {
               "expr": {
                 "Literal": {
-                  "Value": "80D"
+                  "Value": "72D"
                 }
               }
             }
@@ -177,7 +177,7 @@
             "value": {
               "expr": {
                 "Literal": {
-                  "Value": "105D"
+                  "Value": "140D"
                 }
               }
             }
@@ -191,7 +191,7 @@
             "value": {
               "expr": {
                 "Literal": {
-                  "Value": "60D"
+                  "Value": "64D"
                 }
               }
             }
@@ -205,7 +205,7 @@
             "value": {
               "expr": {
                 "Literal": {
-                  "Value": "55D"
+                  "Value": "52D"
                 }
               }
             }
@@ -233,7 +233,7 @@
             "value": {
               "expr": {
                 "Literal": {
-                  "Value": "45D"
+                  "Value": "40D"
                 }
               }
             }
