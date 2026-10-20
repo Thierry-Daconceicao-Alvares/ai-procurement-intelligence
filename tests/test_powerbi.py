@@ -135,3 +135,23 @@ def test_reserved_table_name_is_refused():
     model.refs.append("Measures")
     errors = validate.check_model(model)
     assert any("Measures is reserved" in e for e in errors)
+
+
+def test_relationship_keys_are_unique_without_case():
+    """Power BI compares text without case and trims it: the key on the one side
+    of a relationship must stay unique that way, or the model does not load."""
+    import duckdb
+
+    con = duckdb.connect()
+    for _, _, table, column in validate.read_model(DEFINITION).relationships:
+        source = MARTS / SOURCES[table][0]
+        files = f"{source.as_posix()}/*.parquet" if source.is_dir() else source.as_posix()
+        if column not in {
+            f[0] for f in con.execute(f"DESCRIBE SELECT * FROM '{files}'").fetchall()
+        }:
+            continue  # a column added by the query (Dates, merged columns)
+        total, distinct = con.execute(
+            f"SELECT count(*), count(DISTINCT lower(trim(CAST({column} AS VARCHAR)))) "
+            f"FROM '{files}'"
+        ).fetchone()
+        assert total == distinct, f"{table}[{column}] is not unique without case"

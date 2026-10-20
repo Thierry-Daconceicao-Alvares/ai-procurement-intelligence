@@ -167,6 +167,11 @@ TABLES = [
         "records of one award. awarded_amount is empty when the reported amount is missing "
         "or implausible.",
         [
+            integer(
+                "contract_id",
+                "Integer key of the contract. Relationships use it: a few uid differ only by "
+                "case, and Power BI compares text without case.",
+            ),
             text("uid", "Identifier of the contract in the consolidated data."),
             text("contract_ref", "Reference of the contract given by the buyer."),
             text("buyer_siret", "SIRET of the buyer."),
@@ -224,6 +229,7 @@ TABLES = [
         "One holder of a contract. The awarded amount is shared equally between the holders "
         "of a contract, so that supplier totals add up to the contract total.",
         [
+            integer("contract_id"),
             text("uid"),
             text("holder_key"),
             amount("allocated_amount", "Share of the awarded amount of the contract."),
@@ -332,6 +338,7 @@ TABLES = [
                 "0.0",
                 "Severity points plus the order of magnitude of the amount at stake.",
             ),
+            integer("contract_id"),
             text("uid"),
             text("buyer_siret"),
             text("holder_key"),
@@ -418,9 +425,9 @@ RELATIONSHIPS = [
     ("Contracts", "buyer_siret", "Buyers", "buyer_siret"),
     ("Contracts", "cpv_code", "CPV", "cpv_code"),
     ("Contracts", "notification_date", "Dates", "date"),
-    ("ContractHolders", "uid", "Contracts", "uid"),
+    ("ContractHolders", "contract_id", "Contracts", "contract_id"),
     ("ContractHolders", "holder_key", "Suppliers", "holder_key"),
-    ("Alerts", "uid", "Contracts", "uid"),
+    ("Alerts", "contract_id", "Contracts", "contract_id"),
     ("CPV", "cpv_group", "CategoryMarkets", "cpv_group"),
 ]
 
@@ -548,7 +555,7 @@ MEASURES = [
     ),
     Measure(
         "Supplier Contracts",
-        "DISTINCTCOUNT ( ContractHolders[uid] )",
+        "DISTINCTCOUNT ( ContractHolders[contract_id] )",
         "#,0",
         "Suppliers",
         "Contracts held by the suppliers in the filter context.",

@@ -2,6 +2,16 @@
 table Contracts
 	lineageTag: 7404519a-bb7c-5244-b956-437ba288ca96
 
+	/// Integer key of the contract. Relationships use it: a few uid differ only by case, and Power BI compares text without case.
+	column contract_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 59f87ffa-0c90-5a37-80e9-2f3d69522a30
+		summarizeBy: none
+		sourceColumn: contract_id
+
+		annotation SummarizationSetBy = Automatic
+
 	/// Identifier of the contract in the consolidated data.
 	column uid
 		dataType: string

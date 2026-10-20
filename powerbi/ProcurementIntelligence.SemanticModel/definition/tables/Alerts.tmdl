@@ -53,6 +53,15 @@ table Alerts
 
 		annotation SummarizationSetBy = Automatic
 
+	column contract_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 8485b1d2-df17-5f6a-8185-c195c5e2b12a
+		summarizeBy: none
+		sourceColumn: contract_id
+
+		annotation SummarizationSetBy = Automatic
+
 	column uid
 		dataType: string
 		lineageTag: 4cfe7950-f17d-5288-98c1-8f2907af8b8e

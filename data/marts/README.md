@@ -6,6 +6,10 @@ agreements), not amounts paid. Only contracts with `amount_status = 'valid'`
 have an `awarded_amount`; `amount_issue` gives the reason of an implausible
 amount (placeholder, out_of_bounds, default_ceiling, far_from_expected).
 
+`contract_id` is the integer key of a contract in `contracts/`,
+`contract_holders/` and `alerts/`. Use it for joins in tools that compare text
+without case, such as Power BI: a few `uid` differ only by case.
+
 | File | Grain |
 |---|---|
 | `contracts/` | One contract (after merging the records of one award) |

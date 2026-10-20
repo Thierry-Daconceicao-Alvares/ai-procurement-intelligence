@@ -161,7 +161,7 @@ can be checked ([docs/evaluation.md](docs/evaluation.md)):
 - **Alerts**: the decisions of the reviewers, per alert type, are the measure of
   precision that the data cannot give.
 
-The project has 120 tests (`pytest`), run by CI with linting (Ruff), a
+The project has 121 tests (`pytest`), run by CI with linting (Ruff), a
 Docker build and the validation of the Power BI project.
 
 ## Limitations

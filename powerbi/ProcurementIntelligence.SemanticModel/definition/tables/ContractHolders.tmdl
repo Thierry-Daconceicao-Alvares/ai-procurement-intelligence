@@ -2,6 +2,15 @@
 table ContractHolders
 	lineageTag: 3ba14f20-1b22-5180-b064-cf53178a7e12
 
+	column contract_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 2f5d4956-ee73-5cf0-a335-804dc716481b
+		summarizeBy: none
+		sourceColumn: contract_id
+
+		annotation SummarizationSetBy = Automatic
+
 	column uid
 		dataType: string
 		lineageTag: 3210c8a2-f0d3-55bc-8d59-ea1a3a6ec729

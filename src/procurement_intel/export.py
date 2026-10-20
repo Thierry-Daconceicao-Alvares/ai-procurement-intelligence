@@ -20,7 +20,7 @@ from .config import Settings
 EXPORTS = {
     "contracts": """
         SELECT
-            uid, contract_ref, buyer_siret, lead_holder_key, notification_date,
+            i.contract_id, uid, contract_ref, buyer_siret, lead_holder_key, notification_date,
             notification_year, notification_month, contract_type, contract_nature,
             is_framework, procedure_type, procedure_group, offers_received, cpv_code,
             cpv_division, cpv_group, reported_amount, awarded_amount, amount_status,
@@ -28,7 +28,7 @@ EXPORTS = {
             price_variation, modification_count, reported_current_amount, amount_change_ratio,
             amount_change_status, holder_count, buyer_category, buyer_department_code,
             buyer_region_code, records, record_group_kind, record_buyers, source_dataset
-        FROM fct_contracts
+        FROM fct_contracts JOIN contract_ids AS i USING (uid)
         ORDER BY notification_date, uid
     """,
     # Descriptions take most of the space: they are kept for the contracts
@@ -39,15 +39,19 @@ EXPORTS = {
         WHERE uid IN (SELECT uid FROM fct_alerts) AND description IS NOT NULL
         ORDER BY uid
     """,
-    "contract_holders": "SELECT * FROM fct_contract_holders ORDER BY uid, holder_key",
+    "contract_holders": """
+        SELECT i.contract_id, h.*
+        FROM fct_contract_holders AS h JOIN contract_ids AS i USING (uid)
+        ORDER BY uid, holder_key
+    """,
     "buyers": "SELECT * FROM dim_buyers ORDER BY buyer_siret",
     "suppliers": "SELECT * FROM dim_suppliers ORDER BY holder_key",
     "cpv": "SELECT * FROM dim_cpv ORDER BY cpv_code",
     "alerts": """
-        SELECT alert_id, alert_type, category, label, severity, priority, uid, buyer_siret,
-            holder_key, cpv_division, reference_date, amount_at_stake, title,
+        SELECT alert_id, alert_type, category, label, severity, priority, i.contract_id, uid,
+            buyer_siret, holder_key, cpv_division, reference_date, amount_at_stake, title,
             recommended_action, reference, evidence
-        FROM fct_alerts
+        FROM fct_alerts LEFT JOIN contract_ids AS i USING (uid)
         ORDER BY priority DESC, alert_id
     """,
     "supplier_profiles": "SELECT * FROM fct_supplier_profiles ORDER BY holder_key",
@@ -70,6 +74,13 @@ SPLIT = {"contracts", "contract_holders", "alerts"}
 def export_marts(con: duckdb.DuckDBPyConnection, settings: Settings) -> dict:
     out = settings.marts_dir
     out.mkdir(parents=True, exist_ok=True)
+    # An integer key per contract. A few identifiers differ only by case, and
+    # Power BI compares text without case: it cannot relate tables on uid.
+    con.execute(
+        """CREATE OR REPLACE TEMP TABLE contract_ids AS
+        SELECT uid, row_number() OVER (ORDER BY notification_date, uid) AS contract_id
+        FROM fct_contracts"""
+    )
     sizes = {}
     for name, query in EXPORTS.items():
         query = query.format(start=settings.start_date, end=settings.end_date)
@@ -149,6 +160,10 @@ are in euros excluding VAT, as awarded (the maximum amount for framework
 agreements), not amounts paid. Only contracts with `amount_status = 'valid'`
 have an `awarded_amount`; `amount_issue` gives the reason of an implausible
 amount (placeholder, out_of_bounds, default_ceiling, far_from_expected).
+
+`contract_id` is the integer key of a contract in `contracts/`,
+`contract_holders/` and `alerts/`. Use it for joins in tools that compare text
+without case, such as Power BI: a few `uid` differ only by case.
 
 | File | Grain |
 |---|---|

@@ -56,10 +56,15 @@ Relationships (many to one, single direction):
 - Contracts[buyer_siret] → Buyers[buyer_siret]
 - Contracts[cpv_code] → CPV[cpv_code]
 - Contracts[notification_date] → Dates[date]
-- ContractHolders[uid] → Contracts[uid]
+- ContractHolders[contract_id] → Contracts[contract_id]
 - ContractHolders[holder_key] → Suppliers[holder_key]
-- Alerts[uid] → Contracts[uid]
+- Alerts[contract_id] → Contracts[contract_id]
 - CPV[cpv_group] → CategoryMarkets[cpv_group]
+
+Contracts are related through `contract_id`, an integer key, and not through
+`uid`: Power BI compares text without case, and 155 identifiers of the
+published data differ only by case, which would break the one side of the
+relationship.
 
 Dates, Buyers and CPV filter Contracts, which filters ContractHolders and
 Alerts. A supplier filter (Suppliers) reaches ContractHolders only: on the

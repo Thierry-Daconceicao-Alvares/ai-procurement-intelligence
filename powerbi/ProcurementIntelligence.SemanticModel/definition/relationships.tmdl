@@ -10,17 +10,17 @@ relationship f93bbd4b-bdcb-5f67-af35-efb0426f8a44
 	fromColumn: Contracts.notification_date
 	toColumn: Dates.date
 
-relationship c0ccfb26-3db2-5180-8578-5291d243c387
-	fromColumn: ContractHolders.uid
-	toColumn: Contracts.uid
+relationship 4ea8f08d-014a-5e22-9054-bd9631fa6ac8
+	fromColumn: ContractHolders.contract_id
+	toColumn: Contracts.contract_id
 
 relationship fb9f447c-626f-56d2-9f19-8b31284b2f5f
 	fromColumn: ContractHolders.holder_key
 	toColumn: Suppliers.holder_key
 
-relationship 199fb35a-2d0c-5b20-9f7c-6b3739e5751b
-	fromColumn: Alerts.uid
-	toColumn: Contracts.uid
+relationship 4894b481-4ba8-57fe-b986-2d6ba75f0177
+	fromColumn: Alerts.contract_id
+	toColumn: Contracts.contract_id
 
 relationship 35888f19-2a4e-574c-9b23-b5a58eb24750
 	fromColumn: CPV.cpv_group

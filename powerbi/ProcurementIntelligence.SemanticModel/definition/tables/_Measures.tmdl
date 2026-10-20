@@ -108,7 +108,7 @@ table _Measures
 		lineageTag: 2c1e8897-1285-5fa0-b057-888b49baffb0
 
 	/// Contracts held by the suppliers in the filter context.
-	measure 'Supplier Contracts' = DISTINCTCOUNT ( ContractHolders[uid] )
+	measure 'Supplier Contracts' = DISTINCTCOUNT ( ContractHolders[contract_id] )
 		formatString: #,0
 		displayFolder: Suppliers
 		lineageTag: 7d6dd0f7-da34-5766-b195-8678323752f7
