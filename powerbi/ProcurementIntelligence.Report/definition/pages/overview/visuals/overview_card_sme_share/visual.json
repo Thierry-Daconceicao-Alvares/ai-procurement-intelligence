@@ -20,13 +20,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "SME Share of Value"
                 }
               },
-              "queryRef": "Measures.SME Share of Value",
+              "queryRef": "_Measures.SME Share of Value",
               "nativeQueryRef": "SME Share of Value",
               "displayName": "SME share of value"
             }

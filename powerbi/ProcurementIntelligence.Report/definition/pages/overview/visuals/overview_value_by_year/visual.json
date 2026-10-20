@@ -40,13 +40,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Contract Value"
                 }
               },
-              "queryRef": "Measures.Contract Value",
+              "queryRef": "_Measures.Contract Value",
               "nativeQueryRef": "Contract Value",
               "displayName": "Contracts"
             },
@@ -55,13 +55,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Framework Value"
                 }
               },
-              "queryRef": "Measures.Framework Value",
+              "queryRef": "_Measures.Framework Value",
               "nativeQueryRef": "Framework Value",
               "displayName": "Framework agreements (maximum)"
             }

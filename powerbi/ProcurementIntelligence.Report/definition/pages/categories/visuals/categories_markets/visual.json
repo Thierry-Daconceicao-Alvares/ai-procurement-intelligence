@@ -50,13 +50,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Market Value"
                 }
               },
-              "queryRef": "Measures.Market Value",
+              "queryRef": "_Measures.Market Value",
               "nativeQueryRef": "Market Value",
               "displayName": "Value"
             },
@@ -130,7 +130,7 @@
               "Measure": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "Measures"
+                    "Entity": "_Measures"
                   }
                 },
                 "Property": "Market Value"

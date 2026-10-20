@@ -32,6 +32,9 @@ REPORT_SCHEMA = f"{SCHEMAS}/item/report/definition/report/3.0.0/schema.json"
 THEME_FILE = "ProcurementIntelligence.json"
 BASE_THEME = "CY24SU10"
 DEFAULT_FOLDER = r"C:\ai-procurement-intelligence\data\marts"
+# "Measures" is a reserved table name: Power BI Desktop refuses to open a model
+# that uses it ("Unsupported Table name").
+MEASURES_TABLE = "_Measures"
 SOURCE_NOTE = (
     "Source: DECP consolidated by decp.info (Licence Ouverte 2.0) and Base Sirene (INSEE). "
     "Amounts excluding VAT; alerts are risk indicators, not findings."
@@ -686,8 +689,8 @@ def tmdl_text(value: str) -> str:
 def render_measures_table() -> str:
     out = [
         "/// Measures of the report, grouped in display folders.",
-        "table Measures",
-        f"\tlineageTag: {tag('table', 'Measures')}",
+        f"table {MEASURES_TABLE}",
+        f"\tlineageTag: {tag('table', MEASURES_TABLE)}",
         "",
     ]
     for measure in MEASURES:
@@ -707,14 +710,14 @@ def render_measures_table() -> str:
     out += [
         "\tcolumn Value",
         "\t\tisHidden",
-        f"\t\tlineageTag: {tag('column', 'Measures', 'Value')}",
+        f"\t\tlineageTag: {tag('column', MEASURES_TABLE, 'Value')}",
         "\t\tsummarizeBy: none",
         "\t\tisNameInferred",
         "\t\tsourceColumn: [Value]",
         "",
         "\t\tannotation SummarizationSetBy = Automatic",
         "",
-        "\tpartition Measures = calculated",
+        f"\tpartition {MEASURES_TABLE} = calculated",
         "\t\tmode: import",
         '\t\tsource = ROW ( "Value", BLANK () )',
         "",
@@ -735,7 +738,7 @@ def write_semantic_model(out: Path) -> None:
         },
     )
     write_text(definition / "database.tmdl", "database\n\tcompatibilityLevel: 1567\n")
-    names = [t.name for t in TABLES] + ["Measures"]
+    names = [t.name for t in TABLES] + [MEASURES_TABLE]
     query_order = json.dumps(["DataFolder", *[t.name for t in TABLES]])
     model = [
         "model Model",
@@ -781,7 +784,7 @@ def write_semantic_model(out: Path) -> None:
     write_text(definition / "relationships.tmdl", "\n".join(relationships))
     for table in TABLES:
         write_text(definition / "tables" / f"{table.name}.tmdl", render_table(table))
-    write_text(definition / "tables" / "Measures.tmdl", render_measures_table())
+    write_text(definition / "tables" / f"{MEASURES_TABLE}.tmdl", render_measures_table())
 
 
 # ------------------------------------------------------------------------ report
@@ -804,7 +807,7 @@ def column(entity: str, prop: str) -> dict:
 
 
 def measure(prop: str) -> dict:
-    return {"Measure": {"Expression": {"SourceRef": {"Entity": "Measures"}}, "Property": prop}}
+    return {"Measure": {"Expression": {"SourceRef": {"Entity": MEASURES_TABLE}}, "Property": prop}}
 
 
 def projection(field_: dict, display: str | None = None, active: bool | None = None) -> dict:

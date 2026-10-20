@@ -20,13 +20,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Single-offer Rate"
                 }
               },
-              "queryRef": "Measures.Single-offer Rate",
+              "queryRef": "_Measures.Single-offer Rate",
               "nativeQueryRef": "Single-offer Rate",
               "displayName": "Single-offer rate"
             }

@@ -20,13 +20,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Top 10 Supplier Share"
                 }
               },
-              "queryRef": "Measures.Top 10 Supplier Share",
+              "queryRef": "_Measures.Top 10 Supplier Share",
               "nativeQueryRef": "Top 10 Supplier Share",
               "displayName": "Share of the 10 largest suppliers"
             }

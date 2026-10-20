@@ -35,13 +35,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Supplier Value"
                 }
               },
-              "queryRef": "Measures.Supplier Value",
+              "queryRef": "_Measures.Supplier Value",
               "nativeQueryRef": "Supplier Value",
               "displayName": "Value"
             },
@@ -50,13 +50,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Supplier Contracts"
                 }
               },
-              "queryRef": "Measures.Supplier Contracts",
+              "queryRef": "_Measures.Supplier Contracts",
               "nativeQueryRef": "Supplier Contracts",
               "displayName": "Contracts"
             },
@@ -100,7 +100,7 @@
               "Measure": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "Measures"
+                    "Entity": "_Measures"
                   }
                 },
                 "Property": "Supplier Value"

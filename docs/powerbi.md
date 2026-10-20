@@ -45,7 +45,7 @@ excluded from Git by `powerbi/.gitignore`.
 | Alerts | One alert to review, with the names of its buyer and supplier (without the JSON evidence) | `alerts/`, `buyers.parquet`, `suppliers.parquet` |
 | CategoryMarkets | One CPV group: concentration, competition, Kraljic quadrant | `category_markets.parquet` |
 | Dates | Calendar of the analysis window, marked as the date table | `dates.parquet` |
-| Measures | The measures of the report, in display folders | (calculated table) |
+| _Measures | The measures of the report, in display folders | (calculated table) |
 
 All tables are imported. Each Power Query query starts from the `DataFolder`
 parameter; the queries that combine several files (Suppliers, Alerts) read
@@ -87,7 +87,7 @@ Suppliers page, the cards and tables use supplier measures.
 | Markets | Market Value, Market Value Percentile, Market Supply Risk | Values of CategoryMarkets for the Kraljic matrix |
 
 The full DAX is in
-`powerbi/ProcurementIntelligence.SemanticModel/definition/tables/Measures.tmdl`.
+`powerbi/ProcurementIntelligence.SemanticModel/definition/tables/_Measures.tmdl`.
 
 ## Report pages
 

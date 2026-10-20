@@ -1,6 +1,6 @@
 /// Measures of the report, grouped in display folders.
-table Measures
-	lineageTag: 40fba656-bee7-561c-b7d1-f4720f2827f7
+table _Measures
+	lineageTag: 269e5f09-1689-53b2-bb8a-8bdf18c8fed3
 
 	/// Sum of the valid awarded amounts, excluding VAT (framework agreements count for their maximum).
 	measure 'Awarded Value' = SUM ( Contracts[awarded_amount] )
@@ -199,13 +199,13 @@ table Measures
 
 	column Value
 		isHidden
-		lineageTag: d9ce8e3e-582f-5acc-bfef-7ece3359797b
+		lineageTag: c1a99a18-16b1-5e34-8528-cf4046d9dcc2
 		summarizeBy: none
 		isNameInferred
 		sourceColumn: [Value]
 
 		annotation SummarizationSetBy = Automatic
 
-	partition Measures = calculated
+	partition _Measures = calculated
 		mode: import
 		source = ROW ( "Value", BLANK () )

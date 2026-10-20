@@ -20,13 +20,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "High-severity Alerts"
                 }
               },
-              "queryRef": "Measures.High-severity Alerts",
+              "queryRef": "_Measures.High-severity Alerts",
               "nativeQueryRef": "High-severity Alerts",
               "displayName": "High-severity alerts"
             }

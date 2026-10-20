@@ -59,13 +59,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Market Value Percentile"
                 }
               },
-              "queryRef": "Measures.Market Value Percentile",
+              "queryRef": "_Measures.Market Value Percentile",
               "nativeQueryRef": "Market Value Percentile",
               "displayName": "Value at stake"
             }
@@ -78,13 +78,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Market Supply Risk"
                 }
               },
-              "queryRef": "Measures.Market Supply Risk",
+              "queryRef": "_Measures.Market Supply Risk",
               "nativeQueryRef": "Market Supply Risk",
               "displayName": "Supply risk"
             }

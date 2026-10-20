@@ -20,13 +20,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Amount at Stake"
                 }
               },
-              "queryRef": "Measures.Amount at Stake",
+              "queryRef": "_Measures.Amount at Stake",
               "nativeQueryRef": "Amount at Stake",
               "displayName": "Amount at stake (not a loss)"
             }

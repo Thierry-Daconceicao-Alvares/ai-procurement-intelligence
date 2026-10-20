@@ -45,18 +45,18 @@ def test_every_table_is_loaded_and_related():
         "Alerts",
         "CategoryMarkets",
         "Dates",
-        "Measures",
+        "_Measures",
     }
     related = {t for ft, _, tt, _ in model.relationships for t in (ft, tt)}
-    assert related == set(model.tables) - {"Measures"}
+    assert related == set(model.tables) - {"_Measures"}
     assert len(model.measures) >= 18
-    assert set(model.measures.values()) == {"Measures"}
+    assert set(model.measures.values()) == {"_Measures"}
 
 
 def test_reference_checks_find_errors(tmp_path):
     broken = tmp_path / "powerbi"
     shutil.copytree(PROJECT, broken)
-    measures = broken / DEFINITION.relative_to(PROJECT) / "tables" / "Measures.tmdl"
+    measures = broken / DEFINITION.relative_to(PROJECT) / "tables" / "_Measures.tmdl"
     text = measures.read_text(encoding="utf-8")
     measures.write_text(
         text.replace("SUM ( Contracts[awarded_amount] )", "SUM ( Contracts[awarded] )"),
@@ -126,3 +126,12 @@ def test_tables_match_the_marts(table):
     declared = tmdl_types(table)
     assert set(declared) == set(expected) | added
     assert {c: declared[c] for c in expected} == expected
+
+
+def test_reserved_table_name_is_refused():
+    """Power BI Desktop does not open a model with a table named Measures."""
+    model = validate.read_model(DEFINITION)
+    model.tables["Measures"] = set()
+    model.refs.append("Measures")
+    errors = validate.check_model(model)
+    assert any("Measures is reserved" in e for e in errors)

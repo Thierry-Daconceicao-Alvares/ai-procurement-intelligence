@@ -105,6 +105,11 @@ def read_model(definition: Path) -> SemanticModel:
     return model
 
 
+# Names Power BI Desktop rejects for a table ("Unsupported Table name ... found
+# in data model schema"). Add a name here when Desktop rejects it.
+RESERVED_TABLE_NAMES = {"measures"}
+
+
 def check_model(model: SemanticModel) -> list[str]:
     errors = []
     names = set(model.tables)
@@ -115,6 +120,9 @@ def check_model(model: SemanticModel) -> list[str]:
             errors.append(f"PBI_QueryOrder names an unknown query: {name}")
     for name in model.parameters & names:
         errors.append(f"An expression and a table share the name {name}")
+    for name in names:
+        if name.lower() in RESERVED_TABLE_NAMES:
+            errors.append(f"Table name {name} is reserved: Power BI Desktop refuses to open it")
     for table, file, column in model.sort_by:
         if column not in model.tables.get(table, set()):
             errors.append(f"{file}: sortByColumn {column} is not a column of {table}")

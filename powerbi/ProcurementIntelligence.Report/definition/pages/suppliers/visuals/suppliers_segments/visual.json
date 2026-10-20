@@ -40,13 +40,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures"
+                      "Entity": "_Measures"
                     }
                   },
                   "Property": "Profiled Suppliers"
                 }
               },
-              "queryRef": "Measures.Profiled Suppliers",
+              "queryRef": "_Measures.Profiled Suppliers",
               "nativeQueryRef": "Profiled Suppliers",
               "displayName": "Suppliers"
             }
@@ -60,7 +60,7 @@
               "Measure": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "Measures"
+                    "Entity": "_Measures"
                   }
                 },
                 "Property": "Profiled Suppliers"
