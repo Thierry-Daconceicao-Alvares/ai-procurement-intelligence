@@ -11,14 +11,18 @@ Microsoft's published JSON schemas, the references between visuals, measures,
 columns and relationships by `scripts/powerbi/validate.py`, and the TMDL by the
 Tabular Object Model in CI (`.github/workflows/powerbi.yml`). These checks do not
 render the report nor evaluate the DAX and Power Query code: only Power BI
-Desktop does. Open it once in Desktop before relying on it.
+Desktop does. The report was opened and refreshed in Power BI Desktop
+(version 2.159, October 2026): it loads the 1,519,673 contracts and shows the
+same figures as the application.
 
 ## Open the report
 
 1. Get the repository with its marts: clone it (the Parquet files of
    `data/marts/` are committed) or download it as a ZIP and extract it.
 2. Open `powerbi/ProcurementIntelligence.pbip` in a recent version of Power BI
-   Desktop for Windows. If Desktop asks for them, turn on the preview features
+   Desktop for Windows (open the extracted folder, not the ZIP). Recent versions
+   read the PBIR format by default; on an older version, turn on the preview
+   features
    *Power BI Project (.pbip) save option*, *Store semantic model using TMDL
    format* and *Store reports using enhanced metadata format (PBIR)* in
    File > Options and settings > Options > Preview features, then restart it.
@@ -119,9 +123,12 @@ report uses the palette of the application through a custom theme
 
 ## Screenshots
 
-After the first refresh, save one image per page, at 1280 × 720, in
-`docs/images/`: `powerbi-overview.png`, `powerbi-suppliers.png`,
-`powerbi-categories.png` and `powerbi-alerts.png`.
+The four pages, exported to PDF from Power BI Desktop after a refresh:
+
+![Spend overview](images/powerbi-overview.png)
+![Suppliers and supply risk](images/powerbi-suppliers.png)
+![Categories and markets](images/powerbi-categories.png)
+![Alerts to review](images/powerbi-alerts.png)
 
 ## Change the project
 

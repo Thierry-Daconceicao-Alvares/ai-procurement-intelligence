@@ -79,6 +79,17 @@ reproducible from the frozen data snapshot: see [results](docs/results.md).
 
 </details>
 
+<details>
+<summary>The Power BI report on the same marts</summary>
+
+| Spend overview | Suppliers and supply risk |
+|---|---|
+| ![Power BI: spend overview](docs/images/powerbi-overview.png) | ![Power BI: suppliers](docs/images/powerbi-suppliers.png) |
+| **Categories and markets** | **Alerts to review** |
+| ![Power BI: categories and markets](docs/images/powerbi-categories.png) | ![Power BI: alerts](docs/images/powerbi-alerts.png) |
+
+</details>
+
 ## Architecture
 
 ```mermaid
