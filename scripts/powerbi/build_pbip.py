@@ -958,6 +958,11 @@ def card(
         width,
         height,
         roles={"Values": [projection(measure(measure_name), display)]},
+        # Automatic units with one decimal, as in the application: €1.1T and
+        # 1.5M rather than €1T and 2M.
+        objects={
+            "labels": [{"properties": {"labelPrecision": {"expr": {"Literal": {"Value": "1L"}}}}}]
+        },
     )
 
 
